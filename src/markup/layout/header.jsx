@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Sticky from 'react-stickynode';
-
-// Images
 import logo from '../../images/logo.png';
 import logoWhite from '../../images/logo-white.png';
+import api from '../../../src/constants/api';
 
 const Header = () => {
 	
@@ -12,21 +11,36 @@ const Header = () => {
 	const [isSearchFormOpen, setIsSearchBtn] = useState(false);
 	const quikSearchBtn = () => setIsSearchBtn(!isSearchFormOpen);
 	const quikSearchClose = () => setIsSearchBtn(false);
-	const [activeItem, setActiveItem] = useState(null);
 	const [isMobileView, setIsMobileView] = useState(false);
+	const [activeItem, setActiveItem] = useState(null);
+    const [section, setSection] = useState([]);
+
+	const getMenu = () => {
+		api
+		  .get('/section/getWebsiteMenu')
+		  .then((res) => {
+			setSection(res.data.data); // Assuming your data structure is correct
+		  })
+		  .catch((error) => {
+			console.error('Error fetching menu:', error);
+		  });
+	  };
 	
+	  useEffect(() => {
+		getMenu();
+	  }, []);
+	
+	  const handleMenuLinkClick = (title) => {
+		setActiveItem(title);
+	  };
+	
+
 	const toggleSubmenu = (item) => {
 		setActiveItem(item === activeItem ? null : item);
 	};
 	
 	const toggleMenu = () => {
 		setIsMenuOpen((prev) => !prev);
-	};
-
-	const handleMenuLinkClick = () => {
-		if (window.innerWidth <= 991) {
-			setIsMenuOpen(false);
-		}
 	};
 
 	const handleContactBtnClick = () => {
@@ -37,7 +51,6 @@ const Header = () => {
 	const handleMenuCloseClick = () => {
 		setIsMenuOpen(false);
 	};
-	
 
 	
 	useEffect(() => {
@@ -55,93 +68,6 @@ const Header = () => {
 			window.removeEventListener('resize', handleResize);
 		};
 	},[]);
-	
-	const menuItems = [
-		{
-			id: 'home',
-			name: 'Home',
-			linkName: '#',
-		},
-		{
-			id: 'pages',
-			name: 'Pages',
-			linkName: '#',
-			
-			subItems: [
-				{
-					id: 'aboutus',
-					displayName: 'About Us',
-					linkName: 'about-us'
-				},
-				{
-					id: 'team',
-					displayName: 'Our Team',
-					linkName: 'team'
-				},
-				{
-					id: 'faq',
-					displayName: "FAQ's",
-					linkName: 'faq'
-				},
-				{
-					id: 'booking',
-					displayName: 'Booking',
-					linkName: 'booking'
-				},
-				{
-					id: 'error',
-					displayName: 'Error 404',
-					linkName: 'error-404'
-				},
-				{
-					id: 'formLogin',
-					displayName: 'Login / Register',
-					linkName: 'form-login'
-				},
-			]
-		},
-		{
-			id: 'services',
-			name: 'Services',
-			linkName: '',
-			
-			subItems: [
-				{
-					id: 'services',
-					displayName: 'Service',
-					linkName: 'services'
-				},
-				{
-					id: 'serviceDetail',
-					displayName: 'Service Detail',
-					linkName: 'service-detail'
-				},
-			]
-		},
-		{
-			id: 'blog',
-			name: 'Blog',
-			linkName: '#',
-			
-			subItems: [
-				{
-					id: 'blogGrid',
-					displayName: 'Blogs',
-					linkName: 'blog-grid'
-				},
-				{
-					id: 'blogDetails',
-					displayName: 'Blog Details',
-					linkName: 'blog-details'
-				},
-			]
-		},
-		{
-			id: 'contactUs',
-			name: 'Contact Us',
-			linkName: 'contact-us'
-		}
-	];
 	
 	return(
 		<header className="header header-transparent rs-nav">
@@ -184,32 +110,32 @@ const Header = () => {
 							</div>
 							
 							<ul className="nav navbar-nav">	
-								{menuItems.map((item) => (
-									<li
-										key={item.id}
-											className={`${activeItem === item.id ? 'open' : ''}`}
-											onClick={() => toggleSubmenu(item.id)}
-										>
-										{item.subItems ? (
-											<Link to="#">
-												{item.name}
-												<i className={`fas fa-plus`}></i>
-											</Link>
-										) : (
-											<Link to={`/${item.linkName}`} onClick={handleMenuLinkClick}>
-												{item.name}
-											</Link>
-										)}
-										{(isMobileView || activeItem === item.id) && item.subItems && (
-											<ul className="sub-menu">
-												{item.subItems.map((subItem, index) => (
-													<li key={subItem.id}><Link to={`/${subItem.linkName}`} onClick={handleMenuLinkClick}><span>{subItem.displayName}</span></Link></li>
-												))}
-											</ul>
-										)}
-									</li>
-								))}
-							</ul>
+							{section.map((item) => (
+        <li
+          key={item.id}
+          className={`${activeItem === item.section_title ? 'open' : ''}`}
+          onClick={() => handleMenuLinkClick(item.section_title)}
+        >
+          {/* Dynamic link based on routes fetched from API */}
+          <Link to={`/${item.routes}`}>
+            {item.section_title}
+          </Link>
+
+          {item.subItems && item.subItems.length > 0 && (
+            <ul className="sub-menu">
+              {item.subItems.map((subItem) => (
+                <li key={subItem.id}>
+                  <Link to={`/#/${subItem.linkName}`}>
+                    <span>{subItem.displayName}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+</ul>
+
 							
 							<ul className="social-media">
 								<li><a target="_blank" rel="noreferrer" href="https://www.facebook.com/" className="btn btn-primary"><i className="fab fa-facebook-f"></i></a></li>

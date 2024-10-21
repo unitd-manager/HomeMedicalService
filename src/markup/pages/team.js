@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import api from "../../constants/api";
 
 // Import Images
 import bnrImg1 from "../../images/banner/img1.jpg";
@@ -16,73 +17,29 @@ import teamMember4 from "../../images/team/member4.jpg";
 import teamMember5 from "../../images/team/member5.jpg";
 import teamMember6 from "../../images/team/member6.jpg";
 
-// Team Content
-const teamMembers = [
-	{ 
-		thumb: teamMember1,
-		title: "Dr. Addition Smith",		
-		subtitle: "Dentist",
-		socialMedia: [
-			{ platform: 'Twitter', link: 'https://twitter.com/' },
-			{ platform: 'LinkedIn', link: 'https://www.linkedin.com/' },
-			{ platform: 'Instagram', link: 'https://www.instagram.com/' },
-		],
-	},
-	{ 
-		thumb: teamMember2,
-		title: "Dr. Mahfuz Riad",		
-		subtitle: "Chiropractor",
-		socialMedia: [
-			{ platform: 'Twitter', link: 'https://twitter.com/' },
-			{ platform: 'LinkedIn', link: 'https://www.linkedin.com/' },
-			{ platform: 'Instagram', link: 'https://www.instagram.com/' },
-		],
-	},
-	{ 
-		thumb: teamMember3,
-		title: "Dr. David Benjamin",		
-		subtitle: "Cardiologist",
-		socialMedia: [
-			{ platform: 'Twitter', link: 'https://twitter.com/' },
-			{ platform: 'LinkedIn', link: 'https://www.linkedin.com/' },
-			{ platform: 'Instagram', link: 'https://www.instagram.com/' },
-		],
-	},
-	{ 
-		thumb: teamMember4,
-		title: "Dr. Addition Smith",		
-		subtitle: "Dentist",
-		socialMedia: [
-			{ platform: 'Twitter', link: 'https://twitter.com/' },
-			{ platform: 'LinkedIn', link: 'https://www.linkedin.com/' },
-			{ platform: 'Instagram', link: 'https://www.instagram.com/' },
-		],
-	},
-	{ 
-		thumb: teamMember5,
-		title: "Dr. Mahfuz Riad",		
-		subtitle: "Chiropractor",
-		socialMedia: [
-			{ platform: 'Twitter', link: 'https://twitter.com/' },
-			{ platform: 'LinkedIn', link: 'https://www.linkedin.com/' },
-			{ platform: 'Instagram', link: 'https://www.instagram.com/' },
-		],
-	},
-	{ 
-		thumb: teamMember6,
-		title: "Dr. David Benjamin",		
-		subtitle: "Cardiologist",
-		socialMedia: [
-			{ platform: 'Twitter', link: 'https://twitter.com/' },
-			{ platform: 'LinkedIn', link: 'https://www.linkedin.com/' },
-			{ platform: 'Instagram', link: 'https://www.instagram.com/' },
-		],
-	},
-]
 
-class Team extends Component{
+
+export default function Team() {
+
+	const [Team, setTeam] = useState([]);
+
+	useEffect(() => {
+		getTeam();
+		//getCategory();
+	  }, []);
 	
-	render(){
+	  const getTeam = () => {
+		// var formated = title.split("-").join(" ");
+		api
+		  .get("/section/getTeam")
+		  .then((res) => {
+			setTeam(res.data.data);
+			//setCurrentData(res.data.data);
+		  })
+		  .catch(() => {});
+	  };
+
+	
 		return (
 			<>
 				
@@ -110,26 +67,18 @@ class Team extends Component{
 					<section className="section-area section-sp1 team-wraper">
 						<div className="container">
 							<div className="row">
-								{teamMembers.map((teamMember, index) =>(
+								{Team.map((teamMember, index) =>(
 									<div key={index} className="col-lg-4 col-sm-6">
 										<div className="team-member mb-30">
 											<div className="team-media">
-												<img src={teamMember.thumb} alt=""/>
+												<img src={teamMember1} alt=""/>
 											</div>
 											<div className="team-info">
 												<div className="team-info-comntent">
 													<h4 className="title">{teamMember.title}</h4>
-													<span className="text-secondary">{teamMember.subtitle}</span>
+													<span className="text-secondary">{teamMember.description.replace(/<[^>]+>/g, '')}</span>
 												</div>
-												<ul className="social-media mt-3">
-												{teamMember.socialMedia.map((social, index) => (
-													<li key={index}>
-														<a rel="noreferrer" target="_blank" href={social.link}>
-															<i className={`fab fa-${social.platform.toLowerCase()}`} />
-														</a>
-													</li>
-												))}
-											</ul>
+											
 											</div>
 										</div>
 									</div>
@@ -153,7 +102,6 @@ class Team extends Component{
 				
 			</>
 		);
-	}
+
 }
 
-export default Team;

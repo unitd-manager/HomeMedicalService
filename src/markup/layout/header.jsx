@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Sticky from 'react-stickynode';
 
 // Images
-import logo from '../../images/logo.png';
+import logo from '../../images/icon.png';
 import logoWhite from '../../images/logo-white.png';
 
 const Header = () => {
@@ -148,10 +148,9 @@ const Header = () => {
 			<Sticky enabled={true} className="sticky-header navbar-expand-lg">
 				<div className="menu-bar clearfix">
 					<div className="container-fluid clearfix">
-						<div className="menu-logo logo-dark">
-							<Link to="/"><img src={logo} alt=""/></Link>
-						</div>
-						
+					<div className="menu-logo logo-dark" style={{ textAlign: 'right', paddingRight: '40px' }}>
+    <img src={logo} alt="lakshmimission" style={{ width: '100px', height: 'auto', marginTop: '10px' }} />
+</div>	
 						<button className={`navbar-toggler collapsed menuicon justify-content-end ${isMenuOpen ? 'open' : ''}`}
 							type="button"
 							onClick={toggleMenu}
@@ -173,7 +172,7 @@ const Header = () => {
 										<i className="las la-search"></i>
 									</button>
 								</li>
-								<li className="num-bx"><a href="tel:(+01)999888777"><i className="fas fa-phone-alt"></i> (+01) 999 888 777</a></li>
+								<li className="num-bx"><a href="Mob No:+91 90001 91112"><i className="fas fa-phone-alt"></i> +91 90001 91112</a></li>
 								<li className="btn-area"><Link to="/contact-us" className="btn btn-primary shadow">CONTACT US <i className="btn-icon-bx fas fa-chevron-right"></i></Link></li>
 							</ul>
 						</div>

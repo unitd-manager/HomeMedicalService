@@ -468,6 +468,16 @@
 	background-image: url(../../images/background/line-bg3.png);
 	background-repeat:no-repeat;
 	background-size: 100%;
+	 width: 90%;
+    height: 350px; /* You can adjust the height if needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+	border-radius: 10px;
+    margin: 10px; /* Adds space around each carousel box */
+    box-sizing: border-box;
 	
 	@include respond('phone'){
 		padding: 30px 20px;

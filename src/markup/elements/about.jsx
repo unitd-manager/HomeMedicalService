@@ -23,15 +23,15 @@ class aboutSection extends Component{
 										<li><img className="about-thumb1" src={aboutThumb1} alt=""/></li>
 										<li><img className="about-thumb2" src={aboutThumb2} alt=""/></li>
 										<li><img className="about-thumb3" src={aboutThumb3} alt=""/></li>
-										<li><div className="exp-bx">20<span>Year Experience</span></div></li>
+										<li><div className="exp-bx">2+<span>Years Experience</span></div></li>
 									</ul>
 								</div>
 							</div>
 							<div className="col-lg-6 mb-30">
 								<div className="heading-bx">
 									<h6 className="title-ext text-secondary">About Us</h6>
-									<h2 className="title">The Great Place Of Medical Hospital Center</h2>
-									<p>We provide the special tips and advice’s of heath care treatment and high level of best technology involve in the our hospital.</p>
+									<h2 className="title">The great place for Medical Services</h2>
+									<p>We provide the special tips and advice’s of health care treatment and high level of best technology involve in the our hospital.</p>
 								</div>
 								<div className="row">
 									<div className="col-lg-6 col-sm-6 mb-30 mb-sm-20">

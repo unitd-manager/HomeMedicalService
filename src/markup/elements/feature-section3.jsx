@@ -30,7 +30,7 @@ class LatestNewsSection extends Component {
 							</div>
 							<div className="col-xl-3 col-sm-6 mb-30">
 								<div className="feature-container feature-bx3">
-									<h2 className="counter text-secondary">800</h2>
+									<h2 className="counter text-secondary">100+</h2>
 									<h5 className="ttr-title">Satisfied Clients</h5>
 									<p>We’ve helped over 800 clients achieve better health and well-being through our personalized services.</p>
 								</div>

@@ -1,7 +1,8 @@
 import React from 'react';
 
 // Elements
-import MainBannerSection from "../elements/main-banner";
+import MainBannerSection from "../elements/home";
+import BannerSection from "../elements/homebanner";
 import AboutSection from "../elements/about";
 import WorkSection from "../elements/work";
 import AppointmentSection from "../elements/appointment";
@@ -15,6 +16,8 @@ function Index(){
 		<>
 			
 			<MainBannerSection />
+
+			<BannerSection/>
 			
 			<AboutSection />
 			

@@ -116,4 +116,4 @@ class aboutSection extends Component{
 	}
 }
 
-export default aboutSection;
+export default aboutSection;

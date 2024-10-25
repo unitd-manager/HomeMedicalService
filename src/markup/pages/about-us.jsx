@@ -1,22 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
 // Elements
-import AboutSection from "../elements/about";
-import LatestNewsSection from "../elements/latest-news-slider";
-import FeatureSection3 from "../elements/feature-section3";
-import TeamSection from "../elements/team";
-import TestimonialSection from "../elements/testimonial";
-
-// Import Images
+import AboutSection from "../pages/about";
+import AboutPanel3 from "../pages/aboutusPanel3";
+import AboutPanel5 from "../pages/aboutusPanel5";
+import OurStory from "./ourStory";
+import AboutPanel2 from "../pages/aboutusPanel2";
+import AboutPanel4 from "../pages/aboutusPanel4";
+import Quotes from "../pages/Quotes";
 import bnrImg1 from "../../images/banner/img1.jpg";
 import waveBlue from "../../images/shap/wave-blue.png";
 import circleDots from "../../images/shap/circle-dots.png";
 import plusBlue from "../../images/shap/plus-blue.png";
 
-class AboutUs extends Component{
+const aboutus = () => {
 	
-	render(){
 		return (
 			<>
 				
@@ -43,19 +42,23 @@ class AboutUs extends Component{
 					
 					<AboutSection />
 					
-					<FeatureSection3 />
+					<AboutPanel2 />
+
+					<AboutPanel3 />
+
+					<AboutPanel4/>
 					
-					<TeamSection />
+					<OurStory />
+
+					<Quotes />
 					
-					<TestimonialSection />
-					
-					<LatestNewsSection />
+					<AboutPanel5 />
 				
 				</div>
 				
 			</>
 		);
 	}
-}
 
-export default AboutUs;
+
+export default aboutus;

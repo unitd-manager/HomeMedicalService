@@ -834,3 +834,46 @@ blockquote{
 		}
 	}
 }
+
+div {
+	&.comment-list {
+	  margin-bottom: 60px;
+	  padding-left: 0;
+	  list-style: none; // This ensures no bullets or numbers
+  
+	  div.comment {
+		position: relative;
+		padding: 0;
+  
+		// comment body
+		.comment-body {
+		  margin-bottom: 30px;
+		  position: relative;
+		  background-color: #fff;
+		  border-radius: 6px 6px 4px 4px;
+		  padding: 30px;
+		  box-shadow: 0px 10px 30px 0 rgba(0, 0, 0, 0.06);
+		  border: 1px solid rgba($primary, 0.2);
+		  border-width: 1px 1px 3px 1px;
+		  border-bottom-color: $primary;
+		}
+  
+		// comment author
+		.comment-author {
+		  margin-bottom: 15px;
+		  display: flex;
+		  align-items: center;
+  
+		  .fn {
+			display: inline-block;
+			color: #1f2278;
+			font-size: 20px;
+			font-weight: 700;
+			margin-bottom: 5px;
+			line-height: 28px;
+		  }
+		}
+	  }
+	}
+  }
+  

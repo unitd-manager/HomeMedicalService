@@ -1,4 +1,8 @@
-import React, { Component } from 'react';
+import React from "react";
+import caregivers from '../../images/about/honest.png';
+import engagement from '../../images/about/home.png';
+import demand from '../../images/about/convenience.png';
+import safety from '../../images/about/shield.png';
 
 class LatestNewsSection extends Component {
 	render() {
@@ -43,4 +47,4 @@ class LatestNewsSection extends Component {
 	}
 }
 
-export default LatestNewsSection;
+export default features;

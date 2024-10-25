@@ -1,4 +1,8 @@
-import React, { Component } from 'react';
+import React from "react";
+import caregivers from '../../images/about/honest.png';
+import engagement from '../../images/about/home.png';
+import demand from '../../images/about/convenience.png';
+import safety from '../../images/about/shield.png';
 
 class LatestNewsSection extends Component {
 	render() {
@@ -30,7 +34,7 @@ class LatestNewsSection extends Component {
 							</div>
 							<div className="col-xl-4 col-sm-6 mb-30">
 								<div className="feature-container feature-bx3">
-									<h2 className="counter text-secondary">100</h2>
+									<h2 className="counter text-secondary">100+</h2>
 									<h5 className="ttr-title">Satisfied Clients</h5>
 									<p>We’ve helped over 800 clients achieve better health and well-being through our personalized services.</p>
 								</div>
@@ -43,4 +47,4 @@ class LatestNewsSection extends Component {
 	}
 }
 
-export default LatestNewsSection;
+export default features;

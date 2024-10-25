@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 // Images
-import Logo from '../../images/logo.png';
+import Logo from '../../images/icon.png';
 import footerBg from '../../images/background/footer.jpg';
 import ptImg1 from '../../images/shap/wave-blue.png';
 import ptImg2 from '../../images/shap/circle-dots.png';
@@ -30,12 +30,11 @@ class aboutSection extends Component{
 											<Link to="/"><img src={Logo} alt=""/></Link>
 										</div>
 										<div className="ft-contact">
-											<p>Lorem ipsum is dolor sit amet, csectetur adipiscing elit, dolore smod tempor incididunt ut labore et.</p>
 											<div className="contact-bx">
 												<div className="icon"><i className="fas fa-phone-alt"></i></div>
 												<div className="contact-number">
 													<span>Contact Us</span>
-													<h4 className="number">+01 123 456 7890</h4>
+													<h4 className="number">+91 90001 91112</h4>
 												</div>
 											</div>
 										</div>
@@ -47,10 +46,8 @@ class aboutSection extends Component{
 										<ul>
 											<li><Link to="/about-us"><span>About Us</span></Link></li>
 											<li><Link to="/services"><span>Services</span></Link></li>
-											<li><Link to="/booking"><span>Booking</span></Link></li>
-											<li><Link to="/faq"><span>Faq's</span></Link></li>
 											<li><Link to="/blog-grid"><span>Blogs</span></Link></li>
-											<li><Link to="/team"><span>Out Team</span></Link></li>
+											<li><Link to="/team"><span>Our Team</span></Link></li>
 										</ul>
 									</div>
 								</div>
@@ -58,33 +55,40 @@ class aboutSection extends Component{
 									<div className="widget footer_widget">
 										<h3 className="footer-title">Our Service</h3>
 										<ul>
-											<li><Link to="/service-detail"><span>Dental Care</span></Link></li>
-											<li><Link to="/service-detail"><span>Cardiac Clinic</span></Link></li>
-											<li><Link to="/service-detail"><span>Massege Therapy</span></Link></li>
-											<li><Link to="/service-detail"><span>Cardiology</span></Link></li>
-											<li><Link to="/service-detail"><span>Precise Diagnosis</span></Link></li>
-											<li><Link to="/service-detail"><span>Abmbulance Services</span></Link></li>
+											<li><Link to="/service-detail"><span>Category-1</span></Link></li>
+											<li><Link to="/service-detail"><span>Category-2</span></Link></li>
+											<li><Link to="/service-detail"><span>Category-3</span></Link></li>
 										</ul>
 									</div>
 								</div>
 								<div className="col-xl-3 col-lg-3 col-md-6">
 									<div className="widget widget_form">
-										<h3 className="footer-title">Subcribe</h3>
-										<form className="subscribe-form subscription-form mb-30">
-											<div className="ajax-message"></div>
-											<div className="input-group">
-												<input name="email" required="required" className="form-control" placeholder="Email Address" type="email"/>
-											</div>
-											<button name="submit" value="Submit" type="submit" className="btn btn-secondary shadow w-100">Subscribe Now</button>	
-										</form>
-										<div className="footer-social-link">
-											<ul>
-												<li><a target="_blank" rel="noreferrer" href="https://www.facebook.com/"><img src={facebook} alt=""/></a></li>
-												<li><a target="_blank" rel="noreferrer" href="https://twitter.com/"><img src={twitter} alt=""/></a></li>
-												<li><a target="_blank" rel="noreferrer" href="https://www.instagram.com/"><img src={instagram} alt=""/></a></li>
-												<li><a target="_blank" rel="noreferrer" href="https://www.linkedin.com/"><img src={linkedin} alt=""/></a></li>
-											</ul>
-										</div>
+										<h3 className="footer-title">Contact Us</h3>
+										<ul>
+											<li>
+												<span>
+													<i className="fas fa-map-marker-alt"></i>
+													3/379, Devaki Sreenivasagam Complex,<br />
+													Opp. Samy Ayya Nadar School,<br />
+													Kadaikudi Road, Nagalapuram - 628 904.<br />
+													Thoothukudi Dt.
+												</span>
+											</li>
+											<li>
+												<span>
+													<a href="mailto:Imhpudhur@gmail.com">
+														<i className="fas fa-envelope"></i> Imhpudhur@gmail.com
+													</a>
+												</span>
+											</li>
+											<li>
+												<span>
+													<a href="tel:+919000191112">
+														<i className="fas fa-phone"></i> +91 90001 91112
+													</a>
+												</span>
+											</li>
+										</ul>
 									</div>
 								</div>
 							</div>

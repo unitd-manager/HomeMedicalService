@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Routes, Route, Outlet,  HashRouter as Router } from "react-router-dom";
 
 // Elements
@@ -25,8 +25,7 @@ import BlogGrid from './pages/blog-grid';
 import BlogDetails from './pages/blog-details';
 import Error from './pages/error-404';
 
-class Markup extends Component{
-	render(){
+const Markup = () => {
 		return(
 			<>	
 			
@@ -62,7 +61,6 @@ class Markup extends Component{
 			</>
 		);
 	}
-}
 function ThemeLayout(){
 	return(
 		<>

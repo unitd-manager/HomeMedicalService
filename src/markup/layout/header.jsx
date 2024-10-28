@@ -102,6 +102,8 @@ const Header = () => {
 								</li>
 								<li className="num-bx"><a href="Mob No:+91 90001 91112"><i className="fas fa-phone-alt"></i> +91 90001 91112</a></li>
 								<li className="btn-area"><Link to="/contact-us" className="btn btn-primary shadow">CONTACT US <i className="btn-icon-bx fas fa-chevron-right"></i></Link></li>
+								<li className="btn-area" style={{paddingLeft:'15px'}}><Link to="/form-register" className="btn btn-primary shadow"> Register <i className="btn-icon-bx fas fa-chevron-right"></i></Link></li>
+
 							</ul>
 						</div>
 						
@@ -117,7 +119,6 @@ const Header = () => {
           className={`${activeItem === item.section_title ? 'open' : ''}`}
           onClick={() => handleMenuLinkClick(item.section_title)}
         >
-          {/* Dynamic link based on routes fetched from API */}
           <Link to={`/${item.routes}`}>
             {item.section_title}
           </Link>
@@ -126,7 +127,7 @@ const Header = () => {
             <ul className="sub-menu">
               {item.subItems.map((subItem) => (
                 <li key={subItem.id}>
-                  <Link to={`/#/${subItem.linkName}`}>
+                  <Link to={`/${subItem.linkName}`}>
                     <span>{subItem.displayName}</span>
                   </Link>
                 </li>

@@ -58,14 +58,14 @@ const TestimonialSection = () => {
                 </div>
 				{Array.isArray(contentTab) && contentTab.map((item, index) => (
 								<div key={index} className="col-lg-4 col-md-6 mb-30">
-									<div className="feature-container feature-bx2 feature1">
-										<div className="feature-box-xl mb-20">
-											<span className="icon-cell">
+									<div className="features-container features-bx2 feature1">
+										<div className="features-box-xl mb-20">
+											<span className="icon-cells">
 											
 											<img src={`https://homeservices.unitdtechnologies.com/storage/uploads/${item&&item.file_name}`} alt="" />
 											</span> 
 										</div>
-										<div className="icon-content">
+										<div className="icons-content">
 											<h3 className="ttr-title">{item.title}</h3>
 											<p>
 											<div dangerouslySetInnerHTML={{ __html: item.description ? formatTextWithLineBreaks(item.description) : '' }} />
@@ -77,7 +77,8 @@ const TestimonialSection = () => {
 							
                 </div>
                 </div>
-                </section>
+                </section> 
+			
     </>
   );
 };

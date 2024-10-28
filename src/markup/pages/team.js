@@ -71,7 +71,12 @@ export default function Team() {
 									<div key={index} className="col-lg-4 col-sm-6">
 										<div className="team-member mb-30">
 											<div className="team-media">
-												<img src={teamMember1} alt=""/>
+											<img
+											src={`https://homeservices.unitdtechnologies.com/storage/uploads/${teamMember.file_name}`}
+											alt={teamMember.title}
+											style={{ width: "130px",height:"130px", objectFit: "cover" }}
+											/>
+
 											</div>
 											<div className="team-info">
 												<div className="team-info-comntent">

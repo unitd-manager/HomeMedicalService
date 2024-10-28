@@ -1,59 +1,191 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from "../../constants/api";
 
-class appointmentForm extends Component{
-	render(){
-		return(
-			<>
-				
-				<div className="appointment-form form-wraper">
-					<h3 className="title">Book a Lakshmi Mission Hospital Service today</h3>
-					<form action="#">
-						<div className="form-group">
-							<select className="form-select form-control">
-								<option defaultValue>Select Department</option>
-								<option defaultValue="1">Nursing Attender</option>
-								<option defaultValue="2">Experienced Caregiver</option>
-								<option defaultValue="3">Physiotheraphy</option>
-								<option defaultValue="4">Nurse Visit</option>
-							</select>
-						</div>
-						<div className="form-group">
-							<select className="form-select form-control">
-								<option defaultValue>Select Hours</option>
-								<option defaultValue="1">5 Hours</option>
-								<option defaultValue="2">10 Hours</option>
-								<option defaultValue="3">15 Hours</option>
-								<option defaultValue="4">Visit Only</option>
-							</select>
-						</div>
-						<div className="form-group">
-							<select className="form-select form-control">
-								<option defaultValue>City</option>
-								<option defaultValue="1">Tirunelveli</option>
-								<option defaultValue="2">Vellore</option>
-								<option defaultValue="3">Tenkasi</option>
-								<option defaultValue="4">Kanyakumari</option>
-							</select>
-						</div>
-						<div className="form-group">
-							<input type="text" className="form-control" placeholder="Your Name"/>
-						</div>
-						<div className="form-group">
-							<input type="number" className="form-control" placeholder="Phone Numbers"/>
-						</div>
-						<div className="form-group">
-							<input type="text" className="form-control" placeholder="Email"/>
-						</div>
-						<div className="form-group">
-							<input type="textarea" className="form-control" placeholder="Comments"/>
-						</div>
-						<button type="submit" className="btn btn-secondary btn-lg">Enquiry</button>
-					</form>
-				</div>
-			
-			</>
-		);
+export default function AppointmentForm() {
+	const [appointment, setAppointment] = useState({
+		customer_name: '',
+		email: '',
+		phone: '',
+		comments: '',
+		department: '',
+		hours: '',
+		city: ''
+	});
+	const [valueList, setValueList] = useState([]);
+	const [valueList1, setValueList1] = useState([]);
+	const [valueList2, setValueList2] = useState([]);
+
+
+	useEffect(() => {
+		getValueList();
+		getValueList1();
+		getValueList2();
+
+	}, []);
+
+	const onEnquirySubmit = (e) => {
+		e.preventDefault();
+		if (appointment.customer_name && appointment.email && appointment.comments) {
+			api.post('/addEnquiry', {
+				customer_name: appointment.customer_name,
+				email: appointment.email,
+				phone: appointment.phone,
+				comments: appointment.comments,
+				department: appointment.department,
+				hours: appointment.hours,
+				city: appointment.city
+			})
+			.then((res) => {
+				console.log(res);
+				alert('Record created successfully');
+			})
+			.catch(() => {
+				alert('Unable to create record.');
+			});
+		} else {
+			alert('Please fill all required fields.');
+		}
 	}
-}
 
-export default appointmentForm;
+	const updateContactFields = (e) => {
+		const fieldName = e.target.name;
+		setAppointment(existingValues => ({
+			...existingValues,
+			[fieldName]: e.target.value,
+		}));
+	}
+
+	const getValueList = () => {
+		api
+			.get("/valuelist/getValueListDepartment")
+			.then((res) => {
+				setValueList(res.data.data);
+			})
+			.catch((error) => {
+				console.error("Error fetching content data:", error);
+			});
+	};
+	const getValueList1 = () => {
+		api
+			.get("/valuelist/getValueListHours")
+			.then((res) => {
+				setValueList1(res.data.data);
+			})
+			.catch((error) => {
+				console.error("Error fetching content data:", error);
+			});
+	};
+	const getValueList2 = () => {
+		api
+			.get("/valuelist/getValueListState")
+			.then((res) => {
+				setValueList2(res.data.data);
+			})
+			.catch((error) => {
+				console.error("Error fetching content data:", error);
+			});
+	};
+
+	return (
+		<div className="appointment-form form-wrapper">
+			<h3 className="title">Book a Lakshmi Mission Hospital Service today</h3>
+			<h5>For any <b>free</b> online consultation.</h5>
+			<h6>
+				<span>
+					<a href="mailto:Imhpudhur@gmail.com">
+						<i className="fas fa-envelope"></i> Imhpudhur@gmail.com
+					</a>
+				</span>
+			</h6>
+				<div className="form-group">
+					<select
+						name="department"
+						className="form-select form-control"
+						onChange={updateContactFields}
+						value={appointment.department}
+					>
+						<option value="">Select Department</option>
+						{valueList && valueList.map((e) => (
+							<option key={e.valuelist_id} value={e.valuelist_id}>
+								{e.value}
+							</option>
+						))}
+					</select>
+				</div>
+				<div className="form-group">
+					<select
+						name="hours"
+						className="form-select form-control"
+						onChange={updateContactFields}
+						value={appointment.hours}
+					>
+						<option value="">Select Hours</option>
+						{valueList1 && valueList1.map((e) => (
+							<option key={e.valuelist_id} value={e.valuelist_id}>
+								{e.value}
+							</option>
+						))}
+					</select>
+				</div>
+				<div className="form-group">
+					<select
+						name="city"
+						className="form-select form-control"
+						onChange={updateContactFields}
+						value={appointment.city}
+					>
+						<option value="">Select City</option>
+						{valueList2 && valueList2.map((e) => (
+							<option key={e.valuelist_id} value={e.valuelist_id}>
+								{e.value}
+							</option>
+						))}
+					</select>
+				</div>
+				<div className="form-group">
+					<input
+						name="customer_name"
+						type="text"
+						className="form-control"
+						placeholder="Your Name"
+						onChange={updateContactFields}
+						value={appointment.customer_name}
+					/>
+				</div>
+				<div className="form-group">
+					<input
+						name="phone"
+						type="number"
+						className="form-control"
+						placeholder="Phone Number"
+						onChange={updateContactFields}
+						value={appointment.phone}
+					/>
+				</div>
+				<div className="form-group">
+					<input
+						name="email"
+						type="email"
+						className="form-control"
+						placeholder="Email"
+						onChange={updateContactFields}
+						value={appointment.email}
+					/>
+				</div>
+				<div className="form-group">
+					<textarea
+						name="comments"
+						className="form-control"
+						placeholder="Comments"
+						onChange={updateContactFields}
+						value={appointment.comments}
+					/>
+				</div>
+				<button onClick={()=>{
+             
+			 onEnquirySubmit();
+			 
+		   }} type="submit" className="btn btn-secondary btn-lg">Enquiry</button>
+		</div>
+	);
+}

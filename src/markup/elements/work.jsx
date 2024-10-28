@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from "../../constants/api";
 import { Link } from 'react-router-dom';
 
 // Import Images
@@ -9,8 +10,61 @@ import ptImg3 from '../../images/shap/circle-dots.png';
 import ptImg4 from '../../images/shap/plus-orange.png';
 
 
-class aboutSection extends Component{
-	render(){
+export default function AboutSection() {
+
+	const [content, setContent] = useState([]);
+  const [content2, setContent2] = useState([]);
+	const [content3, setContent3] = useState([]);
+	const [content4, setContent4] = useState([]);
+
+
+	useEffect(() => {
+		getContent();
+    getContent1();
+    getContent2();
+    getContent3();
+	}, []);
+
+	const getContent = () => {
+		api
+		  .get("/content/howItWorks1")
+		  .then((res) => {
+			setContent(res.data.data);
+		  })
+		  .catch((error) => {
+			console.error("Error fetching content data:", error);
+		  });
+	};
+  const getContent1 = () => {
+		api
+		  .get("/content/howItWorks2")
+		  .then((res) => {
+			setContent2(res.data.data);
+		  })
+		  .catch((error) => {
+			console.error("Error fetching content data:", error);
+		  });
+	};
+  const getContent2 = () => {
+		api
+		  .get("/content/howItWorks3")
+		  .then((res) => {
+			setContent3(res.data.data);
+		  })
+		  .catch((error) => {
+			console.error("Error fetching content data:", error);
+		  });
+	};
+  const getContent3 = () => {
+		api
+		  .get("/content/howItWorks4")
+		  .then((res) => {
+			setContent4(res.data.data);
+		  })
+		  .catch((error) => {
+			console.error("Error fetching content data:", error);
+		  });
+	};
 		return(
 			<>
 				
@@ -23,64 +77,74 @@ class aboutSection extends Component{
             backgroundSize: "100%",
           }}
         >
+	
           <div className="container-sm">
             <div className="heading-bx text-center">
               <h6 className="title-ext text-secondary">Working Process</h6>
               <h2 className="title">How it works?</h2>
             </div>
             <div className="row justify-content-center d-flex align-items-stretch">
+          
               {/* Apply flex properties to align items properly */}
               <div className="col-lg-3 col-md-6 col-sm-6 mb-30 d-flex">
+              {content.map((data, index) => (
                 <div className="work-bx" style={{ minHeight: '250px', flexGrow: 1 }}>
                   <div className="work-num-bx">01</div>
                   <div className="work-content">
-                    <h5 className="title text-secondary mb-10">Make Appointment</h5>
+                    <h5 className="title text-secondary mb-10">{data.title}</h5>
                     <p>
-                      Call us or WhatsApp or simply fill our form to connect with
-                      our Help Care Manager.
+                      {data.description}
                     </p>
                   </div>
                 </div>
+                              ))}
+
               </div>
+              {content2.map((data, index) => (
+
               <div className="col-lg-3 col-md-6 col-sm-6 mb-30 d-flex">
                 <div className="work-bx active" style={{ minHeight: '250px', flexGrow: 1 }}>
                   <div className="work-num-bx">02</div>
                   <div className="work-content">
-                    <h5 className="title text-secondary mb-10">Take Treatment</h5>
+                    <h5 className="title text-secondary mb-10">{data.title}</h5>
                     <p>
-                      We will send you an Attender/Caregiver profile based on
-                      your requirements.
+                      {data.description}
                     </p>
                   </div>
                 </div>
               </div>
+                 ))}
+                               {content3.map((data, index) => (
+
               <div className="col-lg-3 col-md-6 col-sm-6 mb-30 d-flex">
                 <div className="work-bx" style={{ minHeight: '250px', flexGrow: 1 }}>
                   <div className="work-num-bx">03</div>
                   <div className="work-content">
-                    <h5 className="title text-secondary mb-10">Registration</h5>
+                    <h5 className="title text-secondary mb-10">{data.title}</h5>
                     <p>
-                      We arrange a face-to-face meeting with our Care Manager &
-                      Attender/Caregiver.
+                      {data.description}
                     </p>
                   </div>
                 </div>
               </div>
+                               ))}
+                               {content4.map((data, index) => (
+
               <div className="col-lg-3 col-md-6 col-sm-6 mb-30 d-flex">
                 <div className="work-bx" style={{ minHeight: '250px', flexGrow: 1 }}>
                   <div className="work-num-bx">04</div>
                   <div className="work-content">
-                    <h5 className="title text-secondary mb-10">Payment</h5>
+                    <h5 className="title text-secondary mb-10">{data.title}</h5>
                     <p>
-                      Pay once your Attender/Caregiver is deployed at your
-                      residence.
+                      {data.description}
                     </p>
                   </div>
                 </div>
               </div>
+                                             ))}
+
             </div>
           </div>
-
 
           <img className="pt-img1 animate1" src={ptImg1} alt="" />
           <img className="pt-img2 animate2" src={ptImg2} alt="" />
@@ -92,6 +156,3 @@ class aboutSection extends Component{
 			</>
 		);
 	}
-}
-
-export default aboutSection;

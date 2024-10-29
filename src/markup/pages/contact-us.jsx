@@ -74,28 +74,15 @@ class ContactUs extends Component{
 										</form>
 									</div>
 									<div className="col-lg-6 mb-30">
-										<div className="contact-info ovpr-dark" style={{backgroundImage: "url("+pic1+")"}}>
-											<div className="info-inner">
-												<h4 className="title mb-30">Contact Us For Any Informations</h4>
-												<div className="icon-box">
-													<h6 className="title"><i className="ti-map-alt"></i>Location</h6>		
-													<p>2005 Stokes Isle Apt. 896, Venaville 10010, USA</p>
-												</div>
-												<div className="icon-box">
-													<h6 className="title"><i className="ti-id-badge"></i>Email &amp; Phone</h6>		
-													<Link to="#" className="text-white">info@yourdomain.com</Link>
-													<p>(+68) 120034509</p>
-												</div>
-												<div className="icon-box">
-													<h6 className="title"><i className="ti-world"></i>Follow Us</h6>
-													<ul className="social-media">
-														<li><a rel="noreferrer" target="_blank" href="https://twitter.com/"><i className="fab fa-twitter"></i></a></li>
-														<li><a rel="noreferrer" target="_blank" href="https://www.linkedin.com/"><i className="fab fa-linkedin"></i></a></li>
-														<li><a rel="noreferrer" target="_blank" href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
+										<iframe
+											src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d516470.8695088285!2d77.8212477604417!3d9.316971306374716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b01453d47ccc2bd%3A0xd97b394f8212c42!2sLAKSHMI%20MISSION%20HOSPITAL!5e1!3m2!1sen!2sin!4v1729857704876!5m2!1sen!2sin"
+											width="500"
+											height="550"
+											style={{ border: 0 }}
+											allowFullScreen
+											loading="lazy"
+											referrerPolicy="no-referrer-when-downgrade"
+										></iframe>
 									</div>
 								</div>
 							</div>
@@ -112,8 +99,7 @@ class ContactUs extends Component{
 										</div>
 										<div className="icon-content">
 											<h5 className="ttr-title">Contact Number</h5>
-											<p>+001 123 456 790</p>
-											<p>+002 3424 44 00</p>
+											<p>+91 90001 91112</p>
 										</div>
 									</div>
 								</div>
@@ -124,8 +110,9 @@ class ContactUs extends Component{
 										</div>
 										<div className="icon-content">
 											<h5 className="ttr-title">Email Address</h5>
-											<p>info@yourdomain.com</p>
-											<p>example@support.com</p>
+											<p>lmhpudhur@gmail.com</p>
+											<p>lakshmimissionhospital@mail.com</p>
+											<p>drsmskannan@gmail.com</p>
 										</div>
 									</div>
 								</div>
@@ -136,7 +123,7 @@ class ContactUs extends Component{
 										</div>
 										<div className="icon-content">
 											<h5 className="ttr-title">Address</h5>
-											<p>2005 Stokes Isle Apt. 896, Venaville 10010, USA</p>
+											<p>3/379, Devaki Sreenivasagam Comples, Opp. Samy Ayya Nadar School, kadaikudi Road, Nagalapuram - 628 904. Thoothukudi Dt.</p>
 										</div>
 									</div>
 								</div>

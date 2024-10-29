@@ -12,19 +12,38 @@ const FormLogin = () => {
 	});
 	const navigate = useNavigate(); 
 
-	const insertContact = (e) => {
-		e.preventDefault(); // Prevent form submission default behavior
-		api
+	const insertContact = () => {
+		return api
 			.post("/api/register", registerForm)
 			.then((res) => {
 				setRegisterForm(res.data.data);
+				console.log('User registered:', res.data.data);
+			})
+			.catch((err) => {
+				console.error('Registration error:', err);
+			});
+	};
+
+	const sendMail = () => {
+		const to = registerForm.email;
+		const subject = "Registration";
+		return api
+			.post("/commonApi/sendUseremail", { to, subject })
+			.then(() => {
+				console.log('Email sent to:', registerForm.email);
 				setTimeout(() => {
-					navigate("/form-login"); // Navigate to the login form
+					navigate("/form-login");
 				}, 100);
 			})
 			.catch((err) => {
-				console.error(err);
+				console.error('Email sending error:', err);
 			});
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault(); // Ensure the form does not reload the page
+		await insertContact();
+		await sendMail();
 	};
 
 	const handleInputChange = (e) => {
@@ -41,7 +60,7 @@ const FormLogin = () => {
 							<div className="logo">
 								<img src={logo} alt=""/>
 							</div>
-							<form onSubmit={insertContact}>
+							<form onSubmit={handleSubmit}>
 								<div className="form-group">
 									<input 
 										type="text" 
@@ -85,7 +104,9 @@ const FormLogin = () => {
 									/>
 								</div>	
 								<div className="form-group">
-									<button type="submit" className="btn btn-primary w-100 radius-xl">Register Now</button>
+								<button type="submit" className="btn btn-primary w-100 radius-xl">
+										Register Now
+									</button>
 								</div>
 								<div className="text-center mt-40">						
 									<p className="mt-0">Already have an account?</p>

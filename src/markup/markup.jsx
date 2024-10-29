@@ -17,6 +17,7 @@ import Services from './pages/services';
 import ServiceDetail from './pages/service-detail';
 import FormLogin from './pages/form-login';
 import FormRegister from './pages/form-register';
+import MailVerification from './pages/mail-verification';
 import FormForgetPassword from './pages/form-forget-password';
 import Faq from './pages/faq';
 import ContactUs from './pages/contact-us';
@@ -48,6 +49,7 @@ const Markup = () => {
 						</Route>
 						
 						<Route path="/form-login" element={<FormLogin />} />
+						<Route path="/mail-verification" element={<MailVerification />} />
 						<Route path="/form-register" element={<FormRegister />} />
 						<Route path='/form-forget-password' element={<FormForgetPassword />} />
 						

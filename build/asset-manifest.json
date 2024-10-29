@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.3c4ed552.css",
-    "main.js": "/static/js/main.973d30b5.js",
+    "main.js": "/static/js/main.15493456.js",
     "static/js/787.6cf1df6d.chunk.js": "/static/js/787.6cf1df6d.chunk.js",
     "static/media/la-brands-400.svg": "/static/media/la-brands-400.331115337bc9be66667a.svg",
     "static/media/la-solid-900.svg": "/static/media/la-solid-900.0f874d69730f8631d632.svg",
@@ -76,11 +76,11 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "main.3c4ed552.css.map": "/static/css/main.3c4ed552.css.map",
-    "main.973d30b5.js.map": "/static/js/main.973d30b5.js.map",
+    "main.15493456.js.map": "/static/js/main.15493456.js.map",
     "787.6cf1df6d.chunk.js.map": "/static/js/787.6cf1df6d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3c4ed552.css",
-    "static/js/main.973d30b5.js"
+    "static/js/main.15493456.js"
   ]
 }

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-// import Slider from "react-slick";
+import Slider from "react-slick";
+import api from '../../constants/api';
 
 // Import Images
 import testShape from "../../images/testimonials/shape.png";
@@ -15,23 +16,36 @@ import squareBlue from "../../images/shap/square-blue.png";
 import circleDots from "../../images/shap/circle-dots.png";
 import circleOrange2 from "../../images/shap/circle-orange-2.png";
 
-const testimonialSection = () => {
-  // const settings = {
-  // 	dots: false,
-  // 	infinite: true,
-  // 	speed: 1000,
-  // 	slidesToShow: 1,
-  // 	slidesToScroll: 1,
-  // };
+const TestimonialSection = () => {
+  const [testimonials, setTestimonials] = useState([]);
+  
+  useEffect(() => {
+    // Fetch testimonials from API
+    api.get("/content/testimonials")
+      .then(response => {
+        if (response.data.msg === "Success") {
+          setTestimonials(response.data.data);
+        }
+      })
+      .catch(error => console.error("Error fetching testimonials:", error));
+  }, []);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   return (
-    <>
+<>
       <section className="section-area section-sp3 testimonial-wraper">
         <div className="container">
           <div className="heading-bx text-center">
-            <h6 className="title-ext text-secondary">Care Givers</h6>
+            {/* <h6 className="title-ext text-secondary">Testimonials</h6> */}
             <h2 className="title m-b0">
-              Experienced Caregivers for Elderly Seniors
+             Testimonialls
             </h2>
           </div>
           <div className="row align-items-center">
@@ -73,7 +87,7 @@ const testimonialSection = () => {
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="slider-item">
+              {/* <div className="slider-item">
                 <div className="testimonial-bx">
                   <div className="testimonial-content">
                     <p>
@@ -84,79 +98,22 @@ const testimonialSection = () => {
                     </p>
                   </div>
                 </div>
+              </div> */}
+              <Slider {...settings} className="testimonial-slide">
+          {testimonials.map((testimonial) => (
+            <div key={testimonial.content_id} className="slider-item">
+              <div className="testimonial-bx">
+                <div className="testimonial-content">
+                  <p>{testimonial.description}</p>
+                </div>
+                <div className="client-info">
+                  <h5 className="name">{testimonial.title}</h5>
+                  <p>Patient</p>
+                </div>
               </div>
-              {/* <Slider {...settings} className="testimonial-slide">
-									<div className="slider-item">
-										<div className="testimonial-bx">
-											<div className="testimonial-content">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecena ssuspendisse ultrices gravida.</p>
-											</div>
-											<div className="client-info">
-												<h5 className="name">John Deo</h5>
-												<p>patient</p>
-											</div>
-											<div className="quote-icon">
-												<i className="fas fa-quote-left"></i>
-											</div>
-										</div>
-									</div>
-									<div className="slider-item">
-										<div className="testimonial-bx">
-											<div className="testimonial-content">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecena ssuspendisse ultrices gravida.</p>
-											</div>
-											<div className="client-info">
-												<h5 className="name">John Deo</h5>
-												<p>patient</p>
-											</div>
-											<div className="quote-icon">
-												<i className="fas fa-quote-left"></i>
-											</div>
-										</div>
-									</div>
-									<div className="slider-item">
-										<div className="testimonial-bx">
-											<div className="testimonial-content">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecena ssuspendisse ultrices gravida.</p>
-											</div>
-											<div className="client-info">
-												<h5 className="name">John Deo</h5>
-												<p>patient</p>
-											</div>
-											<div className="quote-icon">
-												<i className="fas fa-quote-left"></i>
-											</div>
-										</div>
-									</div>
-									<div className="slider-item">
-										<div className="testimonial-bx">
-											<div className="testimonial-content">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecena ssuspendisse ultrices gravida.</p>
-											</div>
-											<div className="client-info">
-												<h5 className="name">John Deo</h5>
-												<p>patient</p>
-											</div>
-											<div className="quote-icon">
-												<i className="fas fa-quote-left"></i>
-											</div>
-										</div>
-									</div>
-									<div className="slider-item">
-										<div className="testimonial-bx">
-											<div className="testimonial-content">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecena ssuspendisse ultrices gravida.</p>
-											</div>
-											<div className="client-info">
-												<h5 className="name">John Deo</h5>
-												<p>patient</p>
-											</div>
-											<div className="quote-icon">
-												<i className="fas fa-quote-left"></i>
-											</div>
-										</div>
-									</div>
-								</Slider> */}
+            </div>
+          ))}
+        </Slider>
             </div>
           </div>
         </div>
@@ -169,4 +126,4 @@ const testimonialSection = () => {
   );
 };
 
-export default testimonialSection;
+export default TestimonialSection;

@@ -1,8 +1,8 @@
-import React from "react";
-import caregivers from '../../images/about/honest.png';
-import engagement from '../../images/about/home.png';
-import demand from '../../images/about/convenience.png';
-import safety from '../../images/about/shield.png';
+// import React from "react";
+// import caregivers from '../../images/about/honest.png';
+// import engagement from '../../images/about/home.png';
+// import demand from '../../images/about/convenience.png';
+// import safety from '../../images/about/shield.png';
 
 export default function LatestNewsSection() {
 		return (

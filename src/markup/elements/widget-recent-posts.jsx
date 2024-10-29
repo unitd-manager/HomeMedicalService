@@ -1,57 +1,84 @@
 import React, { Component } from 'react';
+import api from '../../constants/api'; // Ensure this points to your API constants
 import { Link } from 'react-router-dom';
 
 // Import Images
-import recentBlogImg1 from "../../images/blog/recent-blog/pic1.jpg";
-import recentBlogImg2 from "../../images/blog/recent-blog/pic2.jpg";
-import recentBlogImg3 from "../../images/blog/recent-blog/pic3.jpg";
+import bnrImg1 from "../../images/banner/img1.jpg";
+import testPic1 from "../../images/testimonials/pic1.jpg";
+import testPic2 from "../../images/testimonials/pic2.jpg";
+import testPic3 from "../../images/testimonials/pic3.jpg";
 
-class WidgetRecentPosts extends Component{
-	render(){
-		return(
-			<>
-				<div className="widget recent-posts-entry">
-					<h4 className="widget-title">Recent Posts</h4>
-					<div className="widget-post-bx">
-						<div className="widget-post clearfix">
-							<div className="ttr-post-media"> <img src={recentBlogImg1} width="200" height="143" alt=""/> </div>
-							<div className="ttr-post-info">
-								<div className="ttr-post-header">
-									<h6 className="post-title"><Link to="/blog-details">Precious Tips To Help You Get Better.</Link></h6>
-								</div>
-								<ul className="post-meta">
-									<li className="date"><i className="far fa-calendar-alt"></i> 21 July 2021</li>
-								</ul>
-							</div>
-						</div>
-						<div className="widget-post clearfix">
-							<div className="ttr-post-media"> <img src={recentBlogImg2} width="200" height="160" alt=""/> </div>
-							<div className="ttr-post-info">
-								<div className="ttr-post-header">
-									<h6 className="post-title"><Link to="/blog-details">Ten Doubts You Should Clarify About.</Link></h6>
-								</div>
-								<ul className="post-meta">
-									<li className="date"><i className="far fa-calendar-alt"></i> 20 July 2021</li>
-								</ul>
-							</div>
-						</div>
-						<div className="widget-post clearfix">
-							<div className="ttr-post-media"> <img src={recentBlogImg3} width="200" height="160" alt=""/> </div>
-							<div className="ttr-post-info">
-								<div className="ttr-post-header">
-									<h6 className="post-title"><Link to="/blog-details">The 10 Steps Needed For Putting.</Link></h6>
-								</div>
-								<ul className="post-meta">
-									<li className="date"><i className="far fa-calendar-alt"></i> 19 July 2021</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-			</>
-		);
-	}
+class BlogDetails extends Component {
+  state = {
+    blogPosts: [], // State to store blog posts
+    loading: true, // State to manage loading state
+  };
+
+  // Fetch blog images from the API
+  fetchBlogImages = async () => {
+    try {
+      const response = await api.get('/blog/getBlogImage');
+      this.setState({ blogPosts: response.data.data, loading: false });
+    } catch (error) {
+      console.error("Error fetching blog images:", error);
+      this.setState({ loading: false }); // Set loading to false on error
+    }
+  };
+
+  // Lifecycle method to fetch data
+  componentDidMount() {
+    this.fetchBlogImages();
+  }
+
+  render() {
+    const { blogPosts, loading } = this.state;
+
+    return (
+      <>
+        <div className="page-content bg-white">
+          <div className="banner-wraper">
+            <div className="page-banner" style={{ backgroundImage: "url(" + bnrImg1 + ")" }}>
+              <div className="container">
+                <div className="page-banner-entry text-center">
+                  <h1>Blog Details</h1>
+                  <nav aria-label="breadcrumb" className="breadcrumb-row">
+                    <ul className="breadcrumb">
+                      <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+                      <li className="breadcrumb-item active" aria-current="page">Blog Details</li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <section className="section-area section-sp1">
+            <div className="container">
+              {loading ? (
+                <p>Loading...</p> // Show loading message while fetching
+              ) : (
+                blogPosts.map((post) => (
+                  <div key={post.blog_id} className="blog-card mb-30">
+                    <div className="post-media">
+                      <img src={post.file_name} alt="" /> {/* Use fetched image */}
+                    </div>
+                    <div className="post-info">
+                      <ul className="post-meta">
+                        <li className="author"><img src={testPic1} alt="" /> {post.author}</li>
+                        <li className="date"><i className="far fa-calendar-alt"></i> {post.date}</li>
+                      </ul>
+                      <h4 className="post-title">{post.title}</h4>
+                      <p>{post.description}</p> {/* Display description if available */}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </section>
+        </div>
+      </>
+    );
+  }
 }
 
-export default WidgetRecentPosts;
+export default BlogDetails;

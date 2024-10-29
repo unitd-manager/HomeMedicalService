@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Routes, Route, Outlet,  HashRouter as Router } from "react-router-dom";
 
 // Elements
@@ -17,6 +17,7 @@ import Services from './pages/services';
 import ServiceDetail from './pages/service-detail';
 import FormLogin from './pages/form-login';
 import FormRegister from './pages/form-register';
+import MailVerification from './pages/mail-verification';
 import FormForgetPassword from './pages/form-forget-password';
 import Faq from './pages/faq';
 import ContactUs from './pages/contact-us';
@@ -25,8 +26,7 @@ import BlogGrid from './pages/blog-grid';
 import BlogDetails from './pages/blog-details';
 import Error from './pages/error-404';
 
-class Markup extends Component{
-	render(){
+const Markup = () => {
 		return(
 			<>	
 			
@@ -49,6 +49,7 @@ class Markup extends Component{
 						</Route>
 						
 						<Route path="/form-login" element={<FormLogin />} />
+						<Route path="/mail-verification" element={<MailVerification />} />
 						<Route path="/form-register" element={<FormRegister />} />
 						<Route path='/form-forget-password' element={<FormForgetPassword />} />
 						
@@ -62,7 +63,6 @@ class Markup extends Component{
 			</>
 		);
 	}
-}
 function ThemeLayout(){
 	return(
 		<>

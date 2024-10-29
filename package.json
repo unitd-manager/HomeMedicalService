@@ -1,6 +1,6 @@
 {
   "name": "MediTro",
-  "homepage": "http://meditro.themetrades.com/react",
+  "homepage": "http://meditro.themetrades.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,6 +20,7 @@
     "react-stickynode": "^4.1.0",
     "sass": "^1.63.4",
     "slick-carousel": "^1.8.1",
+    "use-history": "^1.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

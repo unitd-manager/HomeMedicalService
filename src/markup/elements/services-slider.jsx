@@ -10,6 +10,7 @@ import waveBlue from "../../images/shap/wave-blue.png";
 import squareRotate from "../../images/shap/square-rotate.png";
 
 const News = () => {
+	const [services, setServices] = useState([]);
 		const [News, setNews] = useState([]);
 		const [CategoryOne, setCategoryOne] = useState([]);
 		const [CategoryTwo, setCategoryTwo] = useState([]);
@@ -18,7 +19,18 @@ const News = () => {
 			getNews();
 			getCategoryOne();
 			getCategoryTwo();
+			getServices();
 		}, []);
+
+		const getServices = () => {
+			api
+				.get('/section/getService12')
+				.then((res) => {
+					setServices(res.data.data);
+				})
+				.catch(() => {});
+		};
+	
 	
 		const getNews = () => {
 			api
@@ -104,15 +116,17 @@ const News = () => {
 				
 				<section className="section-area section-sp1 service-wraper">
 					<div className="row align-items-center">
+					{services.map((data, index) => (
 						<div className="col-xl-4 col-lg-7 mb-30">	
 							<div className="heading-bx">
 								<h6 className="title-ext text-secondary">Services</h6>
-								<h2 className="title">We Cover A Big Variety Of Medical Services</h2>
-								<p>We provide the special tips and advice’s of heath care treatment and high level of best.</p>
+								<h2 className="title">{data.title}</h2>
+								<p>{data.description ? stripHtmlTags(data.description) : ''}</p>
 							</div>
 							<Link to="/services" className="btn btn-secondary btn-lg shadow">All Services</Link>
 						</div>
-						
+						                        ))}
+
 						<div className="col-xl-8 mb-15">	
 							<Slider {...settings} className="service-slide slick-arrow-none">
 							{News.map((data, index) => (
@@ -139,7 +153,7 @@ const News = () => {
                                         <p className="truncate-text">
                                             {data.product_description ? truncateText(stripHtmlTags(data.product_description), 2) : ''}
                                         </p>
-                                        <Link to="/service-detail" className="btn btn-primary light">View More</Link>
+                                        <Link to={`/service-detail/${data.catgory_id}`} className="btn btn-primary light">View More</Link>
                                     </div>
                                 </div>
                             </div>

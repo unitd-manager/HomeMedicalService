@@ -65,7 +65,7 @@ class BlogDetails extends Component {
                         <div className="page-banner" style={{ backgroundImage: "url(" + bnrImg1 + ")" }}>
                             <div className="container">
                                 <div className="page-banner-entry text-center">
-                                    <h1>Blog Details</h1>
+                                    <h1>Blog </h1>
                                     <nav aria-label="breadcrumb" className="breadcrumb-row">
                                         <ul className="breadcrumb">
                                             <li className="breadcrumb-item">
@@ -105,10 +105,10 @@ class BlogDetails extends Component {
                                                 <li className="date"><i className="far fa-calendar-alt"></i> 19 July 2021</li>
                                             </ul>
                                             <div className="ttr-post-title">
-                                                <h2 className="post-title">{loading ? 'Loading...' : title}</h2>
+                                                <h2 className="post-title">{loading.title}</h2>
                                             </div>
                                             <div className="ttr-post-text">
-                                                <p>{loading ? 'Loading...' : description}</p>
+                                                <p>{loading.description}</p>
                                             </div>
                                             <div className="ttr-post-footer">
                                                 <div className="post-tags">

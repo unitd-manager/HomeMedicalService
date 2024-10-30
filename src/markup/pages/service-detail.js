@@ -16,22 +16,48 @@ import plusBlue from "../../images/shap/plus-blue.png";
 
 export default function News() {
 	const [News, setNews] = useState([]);
+	const [CategoryOne, setCategoryOne] = useState([]);
+	const [CategoryTwo, setCategoryTwo] = useState([]);
 
 	useEffect(() => {
 		getNews();
-		//getCategory();
-	  }, []);
-	
-	  const getNews = () => {
-		// var formated = title.split("-").join(" ");
+		getCategoryOne();
+		getCategoryTwo();
+	}, []);
+
+	const getNews = () => {
 		api
-		  .get("/section/getService")
-		  .then((res) => {
-			setNews(res.data.data);
-			//setCurrentData(res.data.data);
-		  })
-		  .catch(() => {});
-	  };
+			.get('/section/getService1')
+			.then((res) => {
+				setNews(res.data.data);
+			})
+			.catch(() => {});
+	};
+
+	const getCategoryOne = () => {
+		api
+			.get('/section/getService2')
+			.then((res) => {
+				setCategoryOne(res.data.data);
+			})
+			.catch(() => {});
+	};
+
+	const getCategoryTwo = () => {
+		api
+			.get('/section/getService3')
+			.then((res) => {
+				setCategoryTwo(res.data.data);
+			})
+			.catch(() => {});
+	};
+
+	const stripHtmlTags = (input) => {
+		let tempDiv = document.createElement("div");
+		tempDiv.innerHTML = input;
+		return tempDiv.textContent || tempDiv.innerText || "";
+	};
+
 
 		return (
 			<>
@@ -58,25 +84,58 @@ export default function News() {
 					</div>
 					
 					<section className="section-area section-sp1">
-						<div className="container">
+						<div className="container" >
+						<h2>{News.length > 0 ? News[0].category_title : 'Category One'}</h2> {/* Add heading for Category One */}
 							<div className="row">
 							{News.map((data, index) => (
 
 								<div className="col-lg-4 col-md-6 mb-30">
 									<div className="feature-container feature-bx2 feature1">
-										<div className="feature-box-xl mb-20">
-											<span className="icon-cell">
-											<img
-  src={`https://homeservices.unitdtechnologies.com/storage/uploads/${data.file_name}`}
-  alt={data.title}
-  style={{ width: "130px",height:"130px", objectFit: "cover" }}
-/>
-
-											</span> 
-										</div>
 										<div className="icon-content">
 											<h3 className="ttr-title">{data.title}</h3>
-											<p>{data.description}</p>
+											<p>{data.product_description ? stripHtmlTags(data.product_description) : ''}</p>
+											{/* <Link to="/service-detail" className="btn btn-primary light">View More</Link> */}
+										</div>
+									</div>
+								</div>
+								     ))}
+								
+							</div>	
+						</div>
+					</section>
+					<section className="section-area section-sp1">
+						<div className="container">
+						<h2>{CategoryOne.length > 0 ? CategoryOne[0].category_title : 'Category Two'}</h2> {/* Add heading for Category One */}
+
+							<div className="row">
+							{CategoryOne.map((data, index) => (
+
+								<div className="col-lg-4 col-md-6 mb-30">
+									<div className="feature-container feature-bx2 feature1">
+										<div className="icon-content">
+											<h3 className="ttr-title">{data.title}</h3>
+											<p>{data.product_description ? stripHtmlTags(data.product_description) : ''}</p>
+											{/* <Link to="/service-detail" className="btn btn-primary light">View More</Link> */}
+										</div>
+									</div>
+								</div>
+								     ))}
+								
+							</div>	
+						</div>
+					</section>
+					<section className="section-area section-sp1">
+						<div className="container">
+						<h2>{CategoryTwo.length > 0 ? CategoryTwo[0].category_title : 'Category Three'}</h2> {/* Add heading for Category One */}
+
+							<div className="row">
+							{CategoryTwo.map((data, index) => (
+
+								<div className="col-lg-4 col-md-6 mb-30">
+									<div className="feature-container feature-bx2 feature1">
+										<div className="icon-content">
+											<h3 className="ttr-title">{data.title}</h3>
+											<p>{data.product_description ? stripHtmlTags(data.product_description) : ''}</p>
 											{/* <Link to="/service-detail" className="btn btn-primary light">View More</Link> */}
 										</div>
 									</div>

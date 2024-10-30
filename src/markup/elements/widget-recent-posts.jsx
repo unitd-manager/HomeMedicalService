@@ -64,7 +64,7 @@ class BlogDetails extends Component {
                     </div>
                     <div className="post-info">
                       <ul className="post-meta">
-                        <li className="author"><img src={testPic1} alt="" /> {post.author}</li>
+                        <li className="author"><img src={testPic1} alt="" /> {post.author}</li>z
                         <li className="date"><i className="far fa-calendar-alt"></i> {post.date}</li>
                       </ul>
                       <h4 className="post-title">{post.title}</h4>

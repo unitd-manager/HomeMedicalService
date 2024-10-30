@@ -1,7 +1,10 @@
-import React, { Component } from "react";
+// import React from "react";
+// import caregivers from '../../images/about/honest.png';
+// import engagement from '../../images/about/home.png';
+// import demand from '../../images/about/convenience.png';
+// import safety from '../../images/about/shield.png';
 
-class features extends Component {
-	render() {
+export default function LatestNewsSection() {
 		return (
 			<>
 				<section className="section-sp1 service-wraper2">
@@ -40,7 +43,6 @@ class features extends Component {
 				</section>
 			</>
 		);
-	}
+	
 }
 
-export default features;

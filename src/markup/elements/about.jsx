@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Import Images
@@ -9,9 +9,29 @@ import ptImg1 from '../../images/shap/wave-orange.png';
 import ptImg2 from '../../images/shap/circle-small-blue.png';
 import ptImg4 from '../../images/shap/square-dots-orange.png';
 import ptImg5 from '../../images/shap/square-blue.png';
+import api from '../../constants/api';
 
-class aboutSection extends Component{
-	render(){
+const AboutSection = () => {
+  const [story, setStory] = useState([]);
+
+  const getMenu = () => {
+    api
+      .get('/content/getStory')
+      .then((res) => {
+        setStory(res.data.data[0]); 
+      })
+      .catch((error) => {
+        console.error('Error fetching menu:', error);
+      });
+  };
+  const stripHtmlTags = (input) => {
+    let tempDiv = document.createElement("div");
+    tempDiv.innerHTML = input;
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+  useEffect(() => {
+    getMenu();
+  }, []);
 		return(
 			<>
 				<section className="section-sp1 about-area">
@@ -30,9 +50,9 @@ class aboutSection extends Component{
 							<div className="col-lg-6 mb-30">
 								<div className="heading-bx">
 									<h6 className="title-ext text-secondary">About Us</h6>
-									<h2 className="title">The great place for Medical Services</h2>
-									<p>We provide the special tips and advice’s of health care treatment and high level of best technology involve in the our hospital.</p>
-								</div>
+									<h2 className="title">{story && story.title}</h2> 
+                <p>{story.description ? stripHtmlTags(story.description) : ''}</p>
+              </div>
 								<div className="row">
 									<div className="col-lg-6 col-sm-6 mb-30 mb-sm-20">
 										<div className="feature-container feature-bx1 feature1">
@@ -114,6 +134,4 @@ class aboutSection extends Component{
 			</>
 		);
 	}
-}
-
-export default aboutSection;
+	export default AboutSection;

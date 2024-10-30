@@ -571,13 +571,16 @@
 
 .feature-bx4{
 	background-color: $white;
-	border-radius:8px;
-	padding:45px 35px 35px;
+	border-radius: 8px;
+	padding: 45px 35px 35px;
 	z-index: 1;
-	overflow:hidden;
+	overflow: hidden;
 	box-shadow: 0px 5px 30px 0px rgba(31, 34, 120, 0.08);
-	border:1px solid;
-	border-color: $primary;
+	border: 1px solid $primary;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Distributes content vertically within the box */
+	min-height: 400px; /* Set a minimum height for consistent box sizing */
 	
 	.feature-icon{
 		position: relative;

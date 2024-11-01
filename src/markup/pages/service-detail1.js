@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import api from "../../constants/api";
 
+
 // Import Images
 import bnrImg1 from "../../images/banner/img1.jpg";
 import waveBlue from "../../images/shap/wave-blue.png";
@@ -10,21 +11,24 @@ import plusBlue from "../../images/shap/plus-blue.png";
 
 
 export default function News() {
-	const [News, setNews] = useState([]);
+	const [CategoryOne, setCategoryOne] = useState([]);
 
 	useEffect(() => {
-		getNews();
+		getCategoryOne();
 	}, []);
 
-	const getNews = () => {
+	
+
+	const getCategoryOne = () => {
 		api
-			.get('/section/getService1')
+			.get('/section/getService2')
 			.then((res) => {
-				setNews(res.data.data);
+				setCategoryOne(res.data.data);
 			})
 			.catch(() => {});
 	};
 
+	
 
 	const stripHtmlTags = (input) => {
 		let tempDiv = document.createElement("div");
@@ -57,16 +61,17 @@ export default function News() {
 						</div>
 					</div>
 					
+					
 					<section className="section-area section-sp1">
-						<div className="container" >
-						<h2>{News.length > 0 ? News[0].category_title : 'Category One'}</h2> {/* Add heading for Category One */}
+						<div className="container">
+						<h2>{CategoryOne.length > 0 ? CategoryOne[0].category_title : 'Category Two'}</h2> {/* Add heading for Category One */}
+
 							<div className="row">
-							{News.map((data, index) => (
+							{CategoryOne.map((data, index) => (
 
 								<div className="col-lg-4 col-md-6 mb-30">
 									<div className="feature-container feature-bx2 feature1">
 										<div className="icon-content">
-											
 											<h3 className="ttr-title">{data.title}</h3>
 											<p>{data.product_description ? stripHtmlTags(data.product_description) : ''}</p>
 											{/* <Link to="/service-detail" className="btn btn-primary light">View More</Link> */}
@@ -78,9 +83,9 @@ export default function News() {
 							</div>	
 						</div>
 					</section>
-		
 					
 				
+					
 				</div>
 				
 			</>

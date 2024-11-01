@@ -135,8 +135,8 @@ export default function Footer() {
 								<h3 className="footer-title">Our Service</h3>
 								<ul>
 									<li><Link to="/service-detail"><span>Category-1</span></Link></li>
-									<li><Link to="/service-detail"><span>Category-2</span></Link></li>
-									<li><Link to="/service-detail"><span>Category-3</span></Link></li>
+									<li><Link to="/service-detail1"><span>Category-2</span></Link></li>
+									<li><Link to="/service-detail2"><span>Category-3</span></Link></li>
 								</ul>
 							</div>
 						</div>

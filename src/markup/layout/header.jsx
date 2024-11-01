@@ -121,6 +121,8 @@ const Header = () => {
 								</li>
 								<li className="num-bx"><a href="tel:(+01)999888777"><i className="fas fa-phone-alt"></i> (+01) 999 888 777</a></li>
 								<li className="btn-area"><Link to="/contact-us" className="btn btn-primary shadow">CONTACT US <i className="btn-icon-bx fas fa-chevron-right"></i></Link></li>
+								<li className="btn-area" style={{marginLeft:"10px"}}><Link to="/form-register" className="btn btn-primary shadow">Register <i className="btn-icon-bx fas fa-chevron-right"></i></Link></li>
+
 							</ul>
 						</div>
 						

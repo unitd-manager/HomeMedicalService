@@ -48,7 +48,7 @@ const Markup = () => {
 							<Route path='/contact-us' element={<ContactUs />} />
 							<Route path='/booking' element={<Booking />} />
 							<Route path='/blog-grid' element={<BlogGrid />} />
-							<Route path='/blog-details/:title' element={<BlogDetails />} />
+							<Route path='/blog-details/:id' element={<BlogDetails />} />
 							<Route path="/blog-grid/:title" element={<BlogDetails />} />
 
 							<Route path="*" element={<Error />} />

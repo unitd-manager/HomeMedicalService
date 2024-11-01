@@ -3,7 +3,7 @@ import api from "../../constants/api";
 
 // Import Images
 import bg1 from '../../images/main-banner/bg1.jpg';
-import doctorImg from '../../images/main-banner/image.png';
+import doctorImg from '../../images/main-banner/oldpeople.jpg';
 // import ptImg1 from '../../images/shap/trangle-orange.png';
 // import ptImg2 from '../../images/shap/square-blue.png';
 import ptImg3 from '../../images/shap/chicle-blue-2.png';

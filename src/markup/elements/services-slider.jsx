@@ -153,7 +153,7 @@ const News = () => {
                                         <p className="truncate-text">
                                             {data.product_description ? truncateText(stripHtmlTags(data.product_description), 2) : ''}
                                         </p>
-                                        <Link to={`/service-detail/${data.catgory_id}`} className="btn btn-primary light">View More</Link>
+										<Link to="/service-detail1" className="btn btn-primary light">View More</Link>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@ const News = () => {
                                         <p className="truncate-text">
                                             {data.product_description ? truncateText(stripHtmlTags(data.product_description), 2) : ''}
                                         </p>
-                                        <Link to="/service-detail" className="btn btn-primary light">View More</Link>
+                                        <Link to="/service-detail2" className="btn btn-primary light">View More</Link>
                                     </div>
                                 </div>
                             </div>

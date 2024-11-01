@@ -15,6 +15,8 @@ import AboutUs from './pages/about-us';
 import Team from './pages/team';
 import Services from './pages/services';
 import ServiceDetail from './pages/service-detail';
+import ServiceDetail1 from './pages/service-detail1';
+import ServiceDetail2 from './pages/service-detail2';
 import FormLogin from './pages/form-login';
 import FormRegister from './pages/form-register';
 import MailVerification from './pages/mail-verification';
@@ -40,11 +42,15 @@ const Markup = () => {
 							<Route path='/team' element={<Team />} />
 							<Route path='/services' element={<Services />} />
 							<Route path='/service-detail' element={<ServiceDetail />} />
+							<Route path='/service-detail1' element={<ServiceDetail1 />} />
+							<Route path='/service-detail2' element={<ServiceDetail2 />} />
 							<Route path='/faq' element={<Faq />} />
 							<Route path='/contact-us' element={<ContactUs />} />
 							<Route path='/booking' element={<Booking />} />
 							<Route path='/blog-grid' element={<BlogGrid />} />
-							<Route path='/blog-details' element={<BlogDetails />} />
+							<Route path='/blog-details/:title' element={<BlogDetails />} />
+							<Route path="/blog-grid/:title" element={<BlogDetails />} />
+
 							<Route path="*" element={<Error />} />
 						</Route>
 						

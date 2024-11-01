@@ -12,12 +12,17 @@ import icon3 from "../../images/icon/icon3.png";
 import animateWave from "../../images/shap/wave-blue.png";
 import animate2 from "../../images/shap/circle-dots.png";
 import animateRotate from "../../images/shap/plus-blue.png";
+import ReCAPTCHA from "react-google-recaptcha";
+import { message } from 'antd';
+
+
 
 const ContactUs = () => {
 	const [companyName, setCompanyName] = useState('');
 	const [address, setAddress] = useState({});
 	const [contact, setContact] = useState({});
   const [mailId, setMailId] = useState("");
+  const [captchaValue, setCaptchaValue] = useState(null); // Add state for captcha
   const [user, setUser] = useState({
     first_name: "",
     email: "",
@@ -42,6 +47,9 @@ const ContactUs = () => {
   };
 
   const onFinish = (e) => {
+    if (!captchaValue) {
+      return message.error("Please complete the CAPTCHA!");
+    }
     e.preventDefault();
     const values = { ...user };
     console.log("Received values of form: ", values);
@@ -49,7 +57,7 @@ const ContactUs = () => {
       .post("/contact/insertContact", values)
       .then((res) => {
         console.log(res.data.data);
-        // message.success("Registered Successfully ");
+        message.success("Registered Successfully ");
       })
       .catch((err) => {
         console.log(err);
@@ -96,6 +104,9 @@ const getMobile = async () => {
 	} catch (error) {
 		console.error("Error fetching contact:", error);
 	}
+}; 
+const onCaptchaChange = (value) => {
+  setCaptchaValue(value); // Set the captcha value when user completes it
 };
 
   return (
@@ -148,6 +159,12 @@ const getMobile = async () => {
                       <div className="form-group col-md-12">
                         <textarea name="notes" required className="form-control" placeholder="Type Message" onChange={handleChange}></textarea>
                       </div>
+                      <div wrapperCol={{ span: 16, offset: 8 }}>
+                    <ReCAPTCHA
+                      sitekey="6LcG8mkqAAAAAAMtU5DZKoOIzzVbStlV4DpfEryp" // Replace with your reCAPTCHA site key
+                      onChange={onCaptchaChange}
+                    />
+                  </div>
                       <div className="col-lg-12">
                         <button name="submit" type="submit" className="btn w-100 btn-secondary btn-lg">Submit</button>
                       </div>

@@ -10,13 +10,6 @@ import lineCircleBlue from "../../images/shap/line-circle-blue.png";
 import waveBlue from "../../images/shap/wave-blue.png";
 import circleDots from "../../images/shap/circle-dots.png";
 import plusBlue from "../../images/shap/circle-dots.png";
-import teamMember1 from "../../images/team/member1.jpg";
-import teamMember2 from "../../images/team/member2.jpg";
-import teamMember3 from "../../images/team/member3.jpg";
-import teamMember4 from "../../images/team/member4.jpg";
-import teamMember5 from "../../images/team/member5.jpg";
-import teamMember6 from "../../images/team/member6.jpg";
-
 
 
 export default function Team() {

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Routes, Route, Outlet,  HashRouter as Router } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Outlet, HashRouter as Router } from "react-router-dom";
 
 // Elements
-import BackToTop from './elements/back-top';
-import PageScrollTop from './elements/page-scroll-top';
+import BackToTop from "./elements/back-top";
+import PageScrollTop from "./elements/page-scroll-top";
 
 // Layout
 import Header from "./layout/header";

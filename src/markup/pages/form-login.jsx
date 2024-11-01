@@ -107,7 +107,7 @@ function Login()  {
 									</div>
 									<div className="form-group">
 										<button type="submit" className="btn mb-30 btn-lg btn-primary w-100" onClick={signin}>Login</button>
-										<Link to="/form-forget-password" data-toggle="tab">Forgot Password</Link>
+										<Link to="/forget-password" data-toggle="tab">Forgot Password</Link>
 									</div>
 									<div className="text-center mt-40">
 										<p className="mt-0">Don't have an account?</p>

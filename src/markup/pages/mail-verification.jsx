@@ -1,40 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../constants/api';
 import { useLocation } from 'react-router-dom';
+import api from '../../constants/api';
 
 const MailVerification = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
 
     useEffect(() => {
-        console.log("Component mounted. Current location object:", location);
+        // Log to check if useEffect runs
+        console.log("useEffect is running.");
 
+        // Log the full location object
+        console.log("Location object:", location);
+
+        // Extract the token from the URL
         const urlSearchParams = new URLSearchParams(location.search);
         const token = urlSearchParams.get("token") || ''; 
-
-        console.log("Extracted token from URL:", token); 
+        console.log("Extracted token:", token);
 
         if (token) {
+            // API call only if token is present
             api
                 .post('/commonApi/resetVerification', { resetToken: token })
                 .then(() => {
                     setSuccess(true);
-                    setLoading(false); 
+                    setLoading(false);
+                    console.log("Verification success.");
                 })
                 .catch((err) => {
                     setError(true);
-                    setLoading(false); 
+                    setLoading(false);
                     console.error("API error:", err);
                 });
         } else {
-            console.error("No token found in the URL."); 
-            setLoading(false); 
+            console.warn("No token found in the URL.");
+            setLoading(false);
         }
-        console.log("Extracted token from URL:", token); 
-    }, [location.search]);
-
+    }, [location]); // Dependency on `location` so it runs when URL changes
 
     return (
         <div className="section-area account-wraper2">

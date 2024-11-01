@@ -12,14 +12,19 @@ function ForgotPassword()  {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 	
-		api
-		  .post("api/forgot", { email: email })
-		  .then((res) => {
-			res.json({});
-		  })
-		  .catch(() => {
-			console.log("error");
-		  });
+api
+  .post("api/forgot", { email: email })
+  .then((res) => {
+    if (res.status === 200) { // Check if the response is successful
+      alert('Reset mail has been sent to your email Id');
+    } else {
+      alert('There was an issue sending the reset email. Please try again.');
+    }
+  })
+  .catch((err) => {
+    console.log("error", err);
+    alert('Failed to send reset email. Please check the email and try again.');
+  });
 	  };
 	return (
 		<>

@@ -34,6 +34,7 @@ const FormLogin = () => {
 				setTimeout(() => {
 					navigate("/form-login");
 				}, 100);
+				alert('Registration mail has been sent');
 			})
 			.catch((err) => {
 				console.error('Email sending error:', err);

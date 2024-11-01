@@ -196,7 +196,7 @@ const ContactUs = () => {
                     </div>
                     <div className="form-group col-md-12">
                       <ReCAPTCHA
-                        sitekey="your-site-key" // Replace with your reCAPTCHA site key
+                        sitekey="6LfnZ3IqAAAAAILh6W3SwazKLmifIV2VqL0-fV1c" // Replace with your reCAPTCHA site key
                         onChange={onCaptchaChange}
                       />
                     </div>

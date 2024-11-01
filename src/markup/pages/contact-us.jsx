@@ -161,7 +161,7 @@ const onCaptchaChange = (value) => {
                       </div>
                       <div wrapperCol={{ span: 16, offset: 8 }}>
                     <ReCAPTCHA
-                      sitekey="6LcG8mkqAAAAAAMtU5DZKoOIzzVbStlV4DpfEryp" // Replace with your reCAPTCHA site key
+                      sitekey="6LfnZ3IqAAAAAILh6W3SwazKLmifIV2VqL0-fV1c" // Replace with your reCAPTCHA site key
                       onChange={onCaptchaChange}
                     />
                   </div>

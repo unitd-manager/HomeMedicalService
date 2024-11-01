@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import api from '../../constants/api';
 
 // Import Images
@@ -12,27 +12,29 @@ import testPic3 from "../../images/testimonials/pic3.jpg";
 
 const BlogDetails = () => {
   const [blogs, setBlogs] = useState([]);
-  const { title } = useParams();
-  const location = useLocation();
-  const data = location.state?.data;
-
+  const { id } = useParams();
+  // const data = location.state?.data;
+  const striptHTMLTags = (input) => {
+    return input ? input.replace(/<[^>]*>/g, "") : ""; // Regular expression to match HTML tags
+  };
   // Function to fetch blog details
-  const getBlogs = () => {
-    const formattedTitle = title.split("-").join(" ");
-    api.post("/blog/getBlogTitle", { title: formattedTitle })
+  const getBlogs = useCallback(() => {
+    api.post("/blog/getBlogTitle", { blog_id: id })
       .then((res) => {
-        if (res.data && res.data.data) {
-          setBlogs(res.data.data[0]);
+        console.log("res.data:", res.data); // Log the data part of the response
+        if (res.data && Array.isArray(res.data.data) && res.data.data.length > 0) {
+          setBlogs(res.data.data);
+        } else {
+          console.warn("No blog data found for this title or incorrect structure.");
         }
       })
       .catch((error) => {
         console.error("Error fetching blog details:", error);
       });
-  };
-
+  }, [id]);
   useEffect(() => {
     getBlogs();
-  }, [title]);
+  }, [id]);
 
   return (
     <div className="page-content bg-white">
@@ -90,16 +92,21 @@ const BlogDetails = () => {
                     </li>
                     <li className="date"><i className="far fa-calendar-alt"></i> 19 July 2021</li>
                   </ul>
-                  {blogs.map((blog, index) => (
-                    <div key={index}>
-                      <div className="ttr-post-title">
-                        <h2 className="post-title">{blog.title}</h2>
-                      </div>
-                      <div className="ttr-post-text">
-                        <p>{blog.description}</p>
-                      </div>
-                    </div>
-                  ))}
+                  {blogs.length > 0 ? (
+  blogs.map((blog, index) => (
+    <div key={index}>
+      <div className="ttr-post-title">
+        <h2 className="post-title">{blog.title}</h2>
+      </div>
+      <div className="ttr-post-text">
+        <p>{blog.description ? striptHTMLTags(blog.description) : ''}</p>
+
+      </div>
+    </div>
+  ))
+) : (
+  <p>No blog details available for this title.</p>
+)}
                   <div className="ttr-post-footer">
                     <div className="share-post ml-auto">
                       <ul className="social-media mb-0">

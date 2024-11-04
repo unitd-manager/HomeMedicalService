@@ -28,6 +28,7 @@ import BlogGrid from './pages/blog-grid';
 import BlogDetails from './pages/blog-details';
 import Error from './pages/error-404';
 import AddCart from './pages/add-cart';
+import MyAccount from './pages/my-account';
 
 const Markup = () => {
 		return(
@@ -51,7 +52,7 @@ const Markup = () => {
 							<Route path='/blog-grid' element={<BlogGrid />} />
 							<Route path='/blog-details/:id' element={<BlogDetails />} />
 							<Route path="/blog-grid/:title" element={<BlogDetails />} />
-
+							<Route path='/my-account' element={<MyAccount />} />
 							<Route path="*" element={<Error />} />
 						</Route>
 						
@@ -60,7 +61,6 @@ const Markup = () => {
 						<Route path="/mail-verification" element={<MailVerification />} />
 						<Route path="/form-register" element={<FormRegister />} />
 						<Route path='/forget-password' element={<ForgetPassword />} />
-						
 					</Routes>
 					
 					<PageScrollTop />

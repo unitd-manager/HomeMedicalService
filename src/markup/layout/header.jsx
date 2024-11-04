@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Sticky from "react-stickynode";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import api from "../../constants/api";
 
 // Images
@@ -13,7 +13,10 @@ const Header = () => {
   const [isSearchFormOpen, setIsSearchBtn] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [isMobileView, setIsMobileView] = useState(false);
-  const [menuItems, setMenuItems] = useState([]); // State to store menu items
+  const [menuItems, setMenuItems] = useState([]);
+  const [firstName, setFirstName] = useState(null);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   const quikSearchBtn = () => setIsSearchBtn(!isSearchFormOpen);
   const quikSearchClose = () => setIsSearchBtn(false);
@@ -30,6 +33,9 @@ const Header = () => {
     if (window.innerWidth <= 991) {
       setIsMenuOpen(false);
     }
+  };
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownOpen((prev) => !prev);
   };
 
   const handleMenuCloseClick = () => {
@@ -65,6 +71,28 @@ const Header = () => {
     fetchMenuItems();
   }, []);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const contactId = localStorage.getItem("contact_id"); // Check for contact_id
+  
+    // Update the state based on user info
+    if (user && user.first_name) {
+      setFirstName(user.first_name);
+      setIsLoggedIn(true); // Set isLoggedIn to true if user is found
+    } else {
+      setIsLoggedIn(false); // Set isLoggedIn to false if no user found
+    }
+  }, []); // Fetch this only on mount
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("contact_id");
+    setFirstName(null);
+    setIsLoggedIn(false);
+    toggleProfileDropdown();
+    window.location.reload(); // Refresh the page to update the UI
+  };
+
   const formatMenuItems = (data) => {
     const menuMap = {};
 
@@ -96,9 +124,80 @@ const Header = () => {
 
     return Object.values(menuMap);
   };
+   const renderProfileDropdown = () => (
+    <ul className="profile-dropdown" style={{
+      position: "absolute",
+      top: "100%",
+      right: 0,
+      backgroundColor: "#fff",
+      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+      listStyleType: "none",
+      padding: "10px",
+      minWidth: "150px",
+      zIndex: 10,
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      {isLoggedIn ? (
+        <>
+          <li style={{ padding: "8px 12px", cursor: "pointer" }}>
+            <Link
+              to="/my-account"
+              onClick={toggleProfileDropdown}
+              style={{ textDecoration: "none", color: "black", display: "block", width: "100%" }}
+            >
+              Profile
+            </Link>
+          </li>
+          <li style={{ padding: "8px 12px", cursor: "pointer" }}>
+            <Link
+              to="/logout"
+              onClick={handleLogout}
+              style={{ textDecoration: "none", color: "black", display: "block", width: "100%" }}
+            >
+              Logout
+            </Link>
+          </li>
+        </>
+      ) : (
+        <>
+          <li style={{ padding: "8px 12px", cursor: "pointer" }}>
+            <Link
+              to="/form-login"
+              onClick={toggleProfileDropdown}
+              style={{ textDecoration: "none", color: "black", display: "block", width: "100%" }}
+            >
+              Login
+            </Link>
+          </li>
+          <li style={{ padding: "8px 12px", cursor: "pointer" }}>
+            <Link
+              to="/form-register"
+              onClick={toggleProfileDropdown}
+              style={{ textDecoration: "none", color: "black", display: "block", width: "100%" }}
+            >
+              Register
+            </Link>
+          </li>
+        </>
+      )}
+    </ul>
+  );
 
   return (
     <header className="header header-transparent rs-nav">
+      {firstName && (
+        <div
+          className="welcome-message"
+          style={{
+            textAlign: "right",
+            padding: "10px",
+            backgroundColor: "#f5f5f5",
+          }}
+        >
+          <h5>Welcome, {firstName}!</h5>
+        </div>
+      )}
       <Sticky enabled={true} className="sticky-header navbar-expand-lg">
         <div className="menu-bar clearfix">
           <div className="container-fluid clearfix">
@@ -147,15 +246,14 @@ const Header = () => {
                     <FaShoppingCart />
                   </Link>
                 </li>
+                <li className="profile-icon" onClick={toggleProfileDropdown} style={{ cursor: "pointer", position: "relative", paddingRight:'10px' }}>
+                  <FaUser />
+                  {isProfileDropdownOpen && renderProfileDropdown()}
+                </li>
+
                 <li className="btn-area">
                   <Link to="/contact-us" className="btn btn-primary shadow">
                     CONTACT US{" "}
-                    <i className="btn-icon-bx fas fa-chevron-right"></i>
-                  </Link>
-                </li>
-                <li className="btn-area" style={{ marginLeft: "10px" }}>
-                  <Link to="/form-register" className="btn btn-primary shadow">
-                    Register{" "}
                     <i className="btn-icon-bx fas fa-chevron-right"></i>
                   </Link>
                 </li>

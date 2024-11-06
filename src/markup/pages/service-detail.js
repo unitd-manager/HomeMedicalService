@@ -67,6 +67,7 @@ export default function News() {
 									<div className="feature-container feature-bx2 feature1">
 										<div className="icon-content">
 											
+											
 											<h3 className="ttr-title">{data.title}</h3>
 											<p>{data.product_description ? stripHtmlTags(data.product_description) : ''}</p>
 											{/* <Link to="/service-detail" className="btn btn-primary light">View More</Link> */}

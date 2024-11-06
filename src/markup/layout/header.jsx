@@ -251,12 +251,12 @@ const Header = () => {
                   {isProfileDropdownOpen && renderProfileDropdown()}
                 </li>
 
-                <li className="btn-area">
+                {/* <li className="btn-area">
                   <Link to="/contact-us" className="btn btn-primary shadow">
                     CONTACT US{" "}
                     <i className="btn-icon-bx fas fa-chevron-right"></i>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
 

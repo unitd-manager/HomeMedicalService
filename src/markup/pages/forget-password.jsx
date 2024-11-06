@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // Import Images
-import logo from "../../images/logo.png";
+import logo from "../../images/icon.png";
 import api from '../../constants/api';
 
 function ForgotPassword()  {
@@ -34,7 +34,11 @@ api
 						<div className="col-xl-5 col-lg-6 col-md-8">
 							<div className="appointment-form form-wraper">
 								<div className="logo">
-									<img src={logo} alt=""/>
+								<img
+                src={logo}
+                alt="lakshmimission"
+                style={{ width: "100px", height: "auto", marginTop: "10px" }}
+              />
 								</div>
 								<form>
                                 <input

@@ -88,8 +88,7 @@ class LatestNewsSection extends Component {
 				<section className="section-area section-sp1 blog-area" style={{ backgroundImage: "url(" + lingBg2 + ")", backgroundPosition: "center", backgroundSize: "cover", }}>
 					<div className="container">
 						<div className="heading-bx text-center">
-							<h6 className="title-ext text-secondary">Latest News</h6>
-							<h2 className="title">Our Latest News</h2>
+							<h6 className="title-ext text-secondary">Blogs</h6>
 						</div>
 
 						{loading ? ( // Show loading state

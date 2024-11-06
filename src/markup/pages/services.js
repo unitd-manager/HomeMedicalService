@@ -13,10 +13,11 @@ import plusBlue from "../../images/shap/plus-blue.png";
 import FeatureSection3 from "../elements/feature-section3";
 import TeamSection from "../elements/team";
 import LatestNewsSection from "../elements/latest-news-slider";
+import Shop from "../elements/shop";
 
 export default function ServiceDetail() {
   const [service, setService] = useState({});
-  const [popularTitle, setPopularTitle] = useState({});
+  // const [popularTitle, setPopularTitle] = useState({});
   const [popular, setPopular] = useState([]);
 
   // Function to get service details
@@ -47,19 +48,19 @@ export default function ServiceDetail() {
     getPopular();
   }, []);
 
-  // Function to get popular title
-  const getPopularTitle = () => {
-    api
-      .get("/section/getPopular11")
-      .then((res) => {
-        setPopularTitle(res.data.data[0] || {});
-      })
-      .catch(() => {});
-  };
+  // // Function to get popular title
+  // const getPopularTitle = () => {
+  //   api
+  //     .get("/section/getPopular11")
+  //     .then((res) => {
+  //       setPopularTitle(res.data.data[0] || {});
+  //     })
+  //     .catch(() => {});
+  // };
 
-  useEffect(() => {
-    getPopularTitle();
-  }, []);
+  // useEffect(() => {
+  //   getPopularTitle();
+  // }, []);
 
   // Function to remove HTML tags
   const removeHtmlTags = (text) => {
@@ -114,22 +115,22 @@ export default function ServiceDetail() {
             <div className="col-lg-10 mb-30">
               <div className="ttr-media mb-30">
                 <img
-                  src={`https://homeservices.unitdtechnologies.com/storage/uploads/${service.file_name || ""}`}
+                  src={`https://homeservices.unitdtechnologies.com/storage/uploads/${service.file_name}`}
                   alt=""
                   className="rounded"
                 />
               </div>
               <div className="clearfix">
                 <div className="head-text mb-30">
-                  <h2 className="title mb-15">{service.title || ""}</h2>
-                  <p className="mb-0">{removeHtmlTags(service.description || "")}</p>
+                  <h2 className="title mb-15">{service.title}</h2>
+                  <p className="mb-0">{removeHtmlTags(service.description )}</p>
                 </div>
               </div>
               <div className="clearfix">
-                <div className="head-text mb-30">
+                {/* <div className="head-text mb-30">
                   <h4 className="title mb-10">{popularTitle.title || ""}</h4>
                   <p className="mb-0">{removeHtmlTags(popularTitle.description || "")}</p>
-                </div>
+                </div> */}
                 <Accordion defaultActiveKey="0" className="accordion ttr-accordion1">
                   {popular.map((item, index) => (
                     <Accordion.Item eventKey={item.content_id} key={index}>
@@ -145,7 +146,7 @@ export default function ServiceDetail() {
           </div>
         </div>
       </section>
-
+     <Shop/>
       <FeatureSection3 />
       <TeamSection />
       <LatestNewsSection />

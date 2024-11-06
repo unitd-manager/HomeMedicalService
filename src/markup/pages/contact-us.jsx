@@ -20,10 +20,10 @@ const ContactUs = () => {
   const [mailId, setMailId] = useState("");
   const [captchaValue, setCaptchaValue] = useState(null);
   const [user, setUser] = useState({
-    first_name: "",
+    customer_name: "",
     email: "",
     phone: "",
-    notes: "",
+    comments: "",
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState(""); // New state for success message
@@ -38,12 +38,12 @@ const ContactUs = () => {
 
   const validateFields = () => {
     let validationErrors = {};
-    if (!user.first_name) validationErrors.first_name = "Name is required.";
+    if (!user.customer_name) validationErrors.customer_name = "Name is required.";
     if (!user.email) validationErrors.email = "Email is required.";
     else if (!/\S+@\S+\.\S+/.test(user.email)) validationErrors.email = "Email is invalid.";
     if (!user.phone) validationErrors.phone = "Phone number is required.";
     else if (!/^\d{10}$/.test(user.phone)) validationErrors.phone = "Phone number must be 10 digits.";
-    if (!user.notes) validationErrors.notes = "Message is required.";
+    if (!user.comments) validationErrors.comments = "Message is required.";
     return validationErrors;
   };
 
@@ -67,10 +67,10 @@ const ContactUs = () => {
       return message.error("Please complete the CAPTCHA!");
     }
 
-    api.post("/contact/insertContact", user)
+    api.post("/enquiry/insertEnquiry", user)
       .then((res) => {
         setSuccessMessage("Thank you for reaching out! Your message has been successfully submitted.");
-        setUser({ first_name: "", email: "", phone: "", notes: "" }); // Reset form fields
+        setUser({ customer_name: "", email: "", phone: "", comments: "" }); // Reset form fields
         setCaptchaValue(null); // Reset CAPTCHA
         message.success("Form submitted successfully!");
       })
@@ -153,14 +153,14 @@ const ContactUs = () => {
                   <div className="row">
                     <div className="form-group col-md-12">
                       <input
-                        name="first_name"
+                        name="customer_name"
                         type="text"
                         className="form-control"
-                        value={user.first_name}
+                        value={user.customer_name}
                         placeholder="Your Name"
                         onChange={handleChange}
                       />
-                      {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
+                      {errors.customer_name && <span className="text-danger">{errors.customer_name}</span>}
                     </div>
                     <div className="form-group col-md-12">
                       <input
@@ -186,13 +186,13 @@ const ContactUs = () => {
                     </div>
                     <div className="form-group col-md-12">
                       <textarea
-                        name="notes"
+                        name="comments"
                         className="form-control"
-                        value={user.notes}
+                        value={user.comments}
                         placeholder="Type Message"
                         onChange={handleChange}
                       ></textarea>
-                      {errors.notes && <span className="text-danger">{errors.notes}</span>}
+                      {errors.comments && <span className="text-danger">{errors.comments}</span>}
                     </div>
                     <div className="form-group col-md-12">
                       <ReCAPTCHA

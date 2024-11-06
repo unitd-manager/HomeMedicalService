@@ -49,9 +49,7 @@ export default function AppointmentForm() {
 		if (!appointment.hours) {
 			errors.hours = 'Hours selection is required';
 		}
-		if (!appointment.city) {
-			errors.city = 'City selection is required';
-		}
+		
 		return errors;
 	}
 
@@ -130,8 +128,8 @@ export default function AppointmentForm() {
 	};
 
 	return (
-		<div className="appointment-form form-wrapper">
-			<h3 className="title">Book a Lakshmi Mission Hospital Service today</h3>
+		<form className="form-wraper contact-form ajax-form">
+						<h3 className="title">Book a Lakshmi Mission Hospital Service today</h3>
 			<h5>For any <b>free</b> online consultation.</h5>
 			<h6>
 				<span>
@@ -148,14 +146,14 @@ export default function AppointmentForm() {
 					onChange={updateContactFields}
 					value={appointment.department}
 				>
-					<option value="">Select Department</option>
+					<option value="">Select Department *</option>
 					{valueList && valueList.map((e) => (
 						<option key={e.valuelist_id} value={e.value}>
 							{e.value}
 						</option>
 					))}
 				</select>
-				{errors.department && <p className="error-message">{errors.department}</p>}
+				{errors.department && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.department}</span>}
 			</div>
 
 			<div className="form-group">
@@ -165,14 +163,14 @@ export default function AppointmentForm() {
 					onChange={updateContactFields}
 					value={appointment.hours}
 				>
-					<option value="">Select Hours</option>
+					<option value="">Select Hours *</option>
 					{valueList1 && valueList1.map((e) => (
 						<option key={e.valuelist_id} value={e.value}>
 							{e.value}
 						</option>
 					))}
 				</select>
-				{errors.hours && <p className="error-message">{errors.hours}</p>}
+				{errors.hours && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.hours}</span>}
 			</div>
 
 			<div className="form-group">
@@ -182,14 +180,14 @@ export default function AppointmentForm() {
 					onChange={updateContactFields}
 					value={appointment.city}
 				>
-					<option value="">Select City</option>
+					<option value="">Select City *</option>
 					{valueList2 && valueList2.map((e) => (
 						<option key={e.valuelist_id} value={e.value}>
 							{e.value}
 						</option>
 					))}
 				</select>
-				{errors.city && <p className="error-message">{errors.city}</p>}
+				{errors.city && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.city}</span>}
 			</div>
 
 			<div className="form-group">
@@ -197,11 +195,11 @@ export default function AppointmentForm() {
 					name="customer_name"
 					type="text"
 					className="form-control"
-					placeholder="Your Name"
+					placeholder="Your Name *"
 					onChange={updateContactFields}
 					value={appointment.customer_name}
 				/>
-				{errors.customer_name && <p className="error-message">{errors.customer_name}</p>}
+				{errors.customer_name && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.customer_name}</span>}
 			</div>
 
 			<div className="form-group">
@@ -209,39 +207,39 @@ export default function AppointmentForm() {
 					name="phone"
 					type="number"
 					className="form-control"
-					placeholder="Phone Number"
+					placeholder="Phone Number *"
 					onChange={updateContactFields}
 					value={appointment.phone}
 				/>
-				{errors.phone && <p className="error-message">{errors.phone}</p>}
+				{errors.phone && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.phone}</span>}
 			</div>
 
 			<div className="form-group">
 				<input
-					name="email"
+				 	name="email"
 					type="email"
 					className="form-control"
-					placeholder="Email"
+					placeholder="Email *"
 					onChange={updateContactFields}
 					value={appointment.email}
 				/>
-				{errors.email && <p className="error-message">{errors.email}</p>}
+				{errors.email && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.email}</span>}
 			</div>
 
 			<div className="form-group">
 				<textarea
 					name="comments"
 					className="form-control"
-					placeholder="Comments"
+					placeholder="Comments *"
 					onChange={updateContactFields}
 					value={appointment.comments}
 				/>
-				{errors.comments && <p className="error-message">{errors.comments}</p>}
+				{errors.comments && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.comments}</span>}
 			</div>
 
 			<button onClick={onEnquirySubmit} type="submit" className="btn btn-secondary btn-lg">
 				Enquiry
 			</button>
-		</div>
+</form>
 	);
 }

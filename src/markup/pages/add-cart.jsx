@@ -1,74 +1,108 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import logo from "../../images/logo.png";
+import api from '../../constants/api';
 
 function Cart() {
-  const [nurses, setNurses] = useState([
-    { id: 1, name: "Nurse A", dayPrice: 1000, nightPrice: 1500, selectedShift: 'day' },
-    { id: 2, name: "Nurse B", dayPrice: 1200, nightPrice: 1800, selectedShift: 'day' },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
 
-  const handleShiftChange = (id, shift) => {
-    setNurses(nurses.map(nurse => 
-      nurse.id === id ? { ...nurse, selectedShift: shift } : nurse
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user")); // Parse the user object from localStorage
+    const contactId = user ? user.contact_id : null; // Retrieve contact_id if user object is present
+    console.log('Fetched contact_id from user object in localStorage:', contactId); // Log for debugging
+  
+    const fetchCartItems = async () => {
+      if (!contactId) {
+        toast.error("Contact ID not found");
+        return;
+      }
+  
+      try {
+        const response = await api.post(`/orders/getBasket`, { contact_id: contactId });
+        console.log('API response data:', response.data); // Log API response for debugging
+
+        // Ensure the response contains the 'data' array and set the cartItems state
+        if (Array.isArray(response.data.data)) {
+          setCartItems(response.data.data); // Set cart items from 'data' key
+        } else {
+          setCartItems([]); // In case the 'data' key is not an array or is missing
+        }
+      } catch (error) {
+        console.error("Error fetching cart items:", error); // Log any error encountered
+        toast.error("Failed to fetch cart items");
+      }
+    };
+  
+    // Call fetchCartItems if contactId is available
+    if (contactId) {
+      fetchCartItems();
+    }
+  }, []); // Run only once on component mount
+
+  // Handle quantity change
+  const handleQtyChange = (id, qty) => {
+    setCartItems(cartItems.map(item => 
+      item.basket_id === id ? { ...item, qty: parseInt(qty, 10) || 1 } : item
     ));
   };
 
+  // Remove an item from the cart
   const handleRemoveItem = (id) => {
-    setNurses(nurses.filter(nurse => nurse.id !== id));
+    setCartItems(cartItems.filter(item => item.basket_id !== id));
   };
 
+  // Calculate total price
   const calculateTotalPrice = () => {
-    return nurses.reduce((total, nurse) => 
-      total + (nurse.selectedShift === 'day' ? nurse.dayPrice : nurse.nightPrice), 
+    return cartItems.reduce((total, item) => 
+      total + (item.unit_price * item.qty), 
     0);
   };
 
   return (
     <>
-      <ToastContainer/>
-      <div className="page-content bg-light">
+      <ToastContainer />
+      <div className="page-content bg-light" style={{paddingTop:"150px"}}>
         <div className="container">
           <div className="text-center mb-4">
-            <img src={logo} alt="Logo" style={{ width: '150px' }}/>
             <h2>Service Cart</h2>
           </div>
           <div className="cart-details">
-            {nurses.map(nurse => (
-              <div key={nurse.id} className="cart-item position-relative p-3 mb-3 bg-white rounded shadow-sm">
-                <button 
-                  className="btn btn-danger btn-sm position-absolute" 
-                  style={{ top: '10px', right: '10px' }}
-                  onClick={() => handleRemoveItem(nurse.id)}
-                >
-                  <i className="fas fa-trash" style={{ color: 'white' }}></i>
-				</button>
-                
-                <h4>{nurse.name}</h4> 
-                <p className="mb-2">Day Price: {nurse.dayPrice} | Night Price: {nurse.nightPrice}</p>
-                <div className="form-group">
-                  <label>Shift:</label>
-                  <select 
-                    value={nurse.selectedShift} 
-                    onChange={(e) => handleShiftChange(nurse.id, e.target.value)}
-                    className="form-control"
+            {Array.isArray(cartItems) && cartItems.length > 0 ? (
+              cartItems.map(item => (
+                <div key={item.basket_id} className="cart-item position-relative p-3 mb-3 bg-white rounded shadow-sm">
+                  <button 
+                    className="btn btn-danger btn-sm position-absolute" 
+                    style={{ top: '10px', right: '10px' }}
+                    onClick={() => handleRemoveItem(item.basket_id)}
                   >
-					<option value="">Select Shift</option>
-                    <option value="day">Day</option>
-                    <option value="night">Night</option>
-                  </select>
+                    <i className="fas fa-trash" style={{ color: 'white' }}></i>
+                  </button>
+                  <h4>{item.title}</h4>
+                  <p className="mb-2">Unit Price: {item.unit_price}</p>
+                  <div className="form-group d-flex align-items-center">
+                    <label className="mr-2">Quantity:</label>
+                    <input 
+                      type="number"
+                      value={item.qty}
+                      onChange={(e) => handleQtyChange(item.basket_id, e.target.value)}
+                      className="form-control" 
+                      style={{ width: '100px' }} // Set width for smaller input
+                      min="1"
+                    />
+                  </div>
+                  <p>Subtotal: {item.unit_price * item.qty}</p>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No items in the cart</p>
+            )}
             <div className="total-price text-center mt-4">
               <h3>Total Price: {calculateTotalPrice()}</h3>
             </div>
             <div className="d-flex justify-content-between mt-3">
               <Link to="/services" className="btn btn-secondary">Continue Browsing Services</Link>
-              <button className="btn btn-primary">Proceed to Checkout</button>
-            </div>
+              <Link to="/checkout" className="btn btn-secondary">Proceed Checkout</Link>            </div>
           </div>
         </div>
       </div>

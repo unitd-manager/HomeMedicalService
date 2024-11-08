@@ -29,6 +29,7 @@ import BlogDetails from './pages/blog-details';
 import Error from './pages/error-404';
 import AddCart from './pages/add-cart';
 import MyAccount from './pages/my-account';
+import Checkout from './pages/checkout';
 
 const Markup = () => {
 		return(
@@ -54,10 +55,11 @@ const Markup = () => {
 							<Route path="/blog-grid/:title" element={<BlogDetails />} />
 							<Route path='/my-account' element={<MyAccount />} />
 							<Route path="*" element={<Error />} />
+							<Route path="/add-cart" element={<AddCart />} />
+							<Route path="/checkout" element={<Checkout />} />
 						</Route>
 						
 						<Route path="/form-login" element={<FormLogin />} />
-						<Route path="/add-cart" element={<AddCart />} />
 						<Route path="/mail-verification" element={<MailVerification />} />
 						<Route path="/form-register" element={<FormRegister />} />
 						<Route path='/forget-password' element={<ForgetPassword />} />

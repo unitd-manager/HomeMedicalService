@@ -39,7 +39,7 @@ export default function AboutSection() {
 							{/* Image on the left */}
 							<div className="col-lg-5 col-md-6 col-sm-5">
 								<div className="banner-img">
-									<img src={doctorImg} alt="Doctor" />
+								<img src={doctorImg} alt="Doctor" style={{ width: '500px', height: 'auto' }} />
 								</div>
 							</div>
 							{/* Text on the right */}

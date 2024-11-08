@@ -17,6 +17,8 @@ const Header = () => {
   const [firstName, setFirstName] = useState(null);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [cartItems, setCartItems] = useState([]);
+const [cartCount, setCartCount] = useState(0); // New state for cart count
 
   const quikSearchBtn = () => setIsSearchBtn(!isSearchFormOpen);
   const quikSearchClose = () => setIsSearchBtn(false);
@@ -82,8 +84,24 @@ const Header = () => {
     } else {
       setIsLoggedIn(false); // Set isLoggedIn to false if no user found
     }
-  }, []); // Fetch this only on mount
+  }, []); // Fetch this only on mount 
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.contact_id) {
+      api
+        .post("/contact/getCartProductsByContactId", { contact_id: user.contact_id })
+        .then((res) => {
+          setCartItems(res.data.data);
+          setCartCount(res.data.data.length);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        
+    }
+  }, []);
+  
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("contact_id");
@@ -242,10 +260,13 @@ const Header = () => {
                   </a>
                 </li>
                 <li className="num-bx">
-                  <Link to="/add-cart">
-                    <FaShoppingCart />
-                  </Link>
-                </li>
+  <Link to="/add-cart">
+    <FaShoppingCart />
+    {cartCount > 0 && (
+      <span className="cart-count">{cartCount}</span> // Display the count
+    )}
+  </Link>
+</li>
                 <li className="profile-icon" onClick={toggleProfileDropdown} style={{ cursor: "pointer", position: "relative", paddingRight:'10px' }}>
                   <FaUser />
                   {isProfileDropdownOpen && renderProfileDropdown()}
@@ -308,49 +329,6 @@ const Header = () => {
                       )}
                   </li>
                 ))}
-              </ul>
-
-              <ul className="social-media">
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://www.facebook.com/"
-                    className="btn btn-primary"
-                  >
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://www.google.com/"
-                    className="btn btn-primary"
-                  >
-                    <i className="fab fa-google"></i>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://www.linkedin.com/"
-                    className="btn btn-primary"
-                  >
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://twitter.com/"
-                    className="btn btn-primary"
-                  >
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                </li>
               </ul>
 
               <div className="menu-close" onClick={handleMenuCloseClick}>

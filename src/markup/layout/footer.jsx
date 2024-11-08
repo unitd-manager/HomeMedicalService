@@ -14,7 +14,6 @@ import ptImg4 from '../../images/shap/wave-blue.png';
 import facebook from '../../images/social/facebook.png';
 import twitter from '../../images/social/twitter.png';
 import instagram from '../../images/social/instagram.png';
-import linkedin from '../../images/social/linkedin.png';
 
 export default function Footer() {
 	// const [menus, setMenus] = useState([]);
@@ -115,13 +114,7 @@ export default function Footer() {
 							<div className="widget footer_widget ml-50">
 								<h3 className="footer-title">Quick Links</h3>
 								<ul>
-									{/* {menus.map((data, index) => (
-										<li key={index}>
-											<Link to={`/${data.value[0].seo_title || data.section_title}`} className="nav-link text-light">
-												{data.section_title}
-											</Link>
-										</li>
-									))} */}
+									
 																		<li><Link to="/Home"><span>Home</span></Link></li>
 									<li><Link to="/about-us"><span>About Us</span></Link></li>
 									<li><Link to="/services"><span>Services</span></Link></li>
@@ -166,10 +159,22 @@ export default function Footer() {
 									</li>
 								</ul>
 							</div>
+							<div className="widget widget_form">
+										<div className="footer-social-link">
+											<ul>
+												<li><a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61555786480558"><img src={facebook} alt=""/></a></li>
+												<li><a target="_blank" rel="noreferrer" href="https://www.instagram.com/lm_hospital_pudhur"><img src={instagram} alt=""/></a></li>
+												<li><a target="_blank" rel="noreferrer" href="https://twitter.com/lmhpudhur"><img src={twitter} alt=""/></a></li>
+											</ul>
+										</div>
+									</div>
 						</div>
+						
 					</div>
 				</div>
+				
 			</div>
+		
 			<div className="container">
 				<div className="footer-bottom">
 					<div className="row">

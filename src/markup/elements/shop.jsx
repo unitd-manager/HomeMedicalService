@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../constants/api";
 
 // Import Images
@@ -12,21 +12,27 @@ export default function Shop() {
   const [shop, setShop] = useState([]);
   const [cart, setCart] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [contactId, setContactId] = useState(''); // State to store contact_id
+  const [contactId, setContactId] = useState('');
+  const [showGoToCart, setShowGoToCart] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getShop();
-    
-    // Check for logged in status and retrieve contact_id
+
+    // Check for logged-in status and retrieve contact_id
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.first_name) {
       setIsLoggedIn(true);
-      setContactId(user.contact_id); // Set the contact_id if user is logged in
-    //   console.log("contactId set in state:", contact_id); // Log to confirm it's set
+      setContactId(user.contact_id);
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+
+    // Load cart items specific to the logged-in user from localStorage if they exist
+    const storedCart = JSON.parse(localStorage.getItem(`cart_${contactId}`)) || [];
+    setCart(storedCart);
+    setShowGoToCart(storedCart.length > 0); // Show "Go to Cart" button if cart is not empty
+  }, [contactId]); // Make sure to re-run the effect when contactId changes
 
   const getShop = () => {
     api
@@ -46,35 +52,40 @@ export default function Shop() {
   const handleAddToCart = (item) => {
     if (!isLoggedIn) {
       alert("You must be logged in to add items to your cart.");
-      return; // Stop execution if the user is not logged in
+      return;
     }
 
-    const qty = 1; // Default quantity set to 1
+    // Retrieve cart data specific to the logged-in user
+    const storedCart = JSON.parse(localStorage.getItem(`cart_${contactId}`)) || [];
+
+    // Check if item is already in the cart
+    const existingItem = storedCart.find(cartItem => cartItem.product_id === item.product_id);
+    if (existingItem) {
+      alert("This item is already in your cart.");
+      return;
+    }
+
+    const qty = 1;
     const unit_price = item.price;
     const product_id = item.product_id;
 
-    setCart([...cart, { ...item, qty, unit_price }]);
-    console.log("Added to Cart:", item);
-    
-    // Log contactId right before the API call
-    // console.log("contactId before API call:", contactId); // Ensure this shows the expected value
-
-    // // Convert contactId to number if necessary
-	// const contactIdNumber = localStorage.getItem("contact_id");
-
     api
       .post("/orders/insertbasketAddCart", {
-        qty: qty,
-        unit_price: unit_price,
-        product_id: product_id,
-        contact_id: contactId, // Use the converted contact_id
+        qty,
+        unit_price,
+        product_id,
+        contact_id: contactId,
         added_to_cart_date: new Date().toISOString().slice(0, 19).replace("T", " "),
-        // order_type: "example_order_type",
-        // category_type: "example_category_type",
-        // delivery_address: "example_address", // Replace with actual address if needed
       })
-      .then((response) => {
-        console.log("Item added to cart successfully:", response.data);
+      .then(() => {
+        const updatedCart = [...storedCart, { ...item, qty, unit_price }];
+        setCart(updatedCart);
+        setShowGoToCart(true); // Show "Go to Cart" button
+
+        // Store updated cart for the specific user in localStorage
+        localStorage.setItem(`cart_${contactId}`, JSON.stringify(updatedCart));
+
+        alert("Item added to cart successfully!");
       })
       .catch((error) => {
         console.error("Error adding item to cart:", error.response ? error.response.data : error);
@@ -151,14 +162,24 @@ export default function Shop() {
                     <button
                       className="btn btn-danger"
                       onClick={() => handleAddToCart(data)}
+                      disabled={cart.some(cartItem => cartItem.product_id === data.product_id)}
                     >
-                      Add to Cart
+                      {cart.some(cartItem => cartItem.product_id === data.product_id)
+                        ? "Already in Cart"
+                        : "Add to Cart"}
                     </button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          {showGoToCart && (
+            <div className="text-center mt-4">
+              <button className="btn btn-primary" onClick={() => navigate("/add-cart")}>
+                Go to Cart
+              </button>
+            </div>
+          )}
         </div>
       </section>
     </div>

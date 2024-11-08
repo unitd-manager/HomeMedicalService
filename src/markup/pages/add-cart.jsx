@@ -79,7 +79,7 @@ function Cart() {
                     <i className="fas fa-trash" style={{ color: 'white' }}></i>
                   </button>
                   <h4>{item.title}</h4>
-                  <p className="mb-2">Unit Price: {item.unit_price}</p>
+                  <p className="mb-2">Price: {item.unit_price}</p>
                   <div className="form-group d-flex align-items-center">
                     <label className="mr-2">Quantity:</label>
                     <input 

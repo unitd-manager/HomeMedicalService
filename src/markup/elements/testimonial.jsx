@@ -45,7 +45,7 @@ const TestimonialSection = () => {
           <div className="heading-bx text-center">
             {/* <h6 className="title-ext text-secondary">Testimonials</h6> */}
             <h2 className="title m-b0">
-             Testimonialls
+             Testimonials
             </h2>
           </div>
           <div className="row align-items-center">

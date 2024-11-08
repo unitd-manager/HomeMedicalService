@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from "../../constants/api";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 // Import Images
 import bg1 from '../../images/background/line-bg1.png';
@@ -103,7 +103,7 @@ export default function AboutSection() {
               {content2.map((data, index) => (
 
               <div className="col-lg-3 col-md-6 col-sm-6 mb-30 d-flex">
-                <div className="work-bx active" style={{ minHeight: '250px', flexGrow: 1 }}>
+                <div className="work-bx" style={{ minHeight: '250px', flexGrow: 1 }}>
                   <div className="work-num-bx">02</div>
                   <div className="work-content">
                     <h5 className="title text-secondary mb-10">{data.title}</h5>
@@ -132,7 +132,7 @@ export default function AboutSection() {
 
               <div className="col-lg-3 col-md-6 col-sm-6 mb-30 d-flex">
                 <div className="work-bx" style={{ minHeight: '250px', flexGrow: 1 }}>
-                  <div className="work-num-bx">04</div>
+                <div className="work-num-bx">04</div>
                   <div className="work-content">
                     <h5 className="title text-secondary mb-10">{data.title}</h5>
                     <p>

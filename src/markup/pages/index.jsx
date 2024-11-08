@@ -9,6 +9,7 @@ import AppointmentSection from "../elements/appointment";
 import TestimonialSection from "../elements/testimonial";
 import ServicesSliderSection from "../elements/services-slider";
 import LatestNewsSection from "../elements/latest-news-slider";
+import { CiTextAlignCenter } from 'react-icons/ci';
 
 function Index(){
 	
@@ -24,7 +25,7 @@ function Index(){
 			<WorkSection />
 			
 			<AppointmentSection />
-			
+			<h2 className="title" style={{ textAlign: "center" }}>Services</h2>
 			<ServicesSliderSection />
 			
 			<TestimonialSection />

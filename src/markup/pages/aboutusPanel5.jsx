@@ -32,7 +32,7 @@ const TestimonialSection = () => {
     <div class="comment-list">
       <div class="comment">
         <div class="comment-body">
-          <div class="comment-author">
+          <div class="comment-author vcard">
             <span class="fn">
 		{item.title}</span>
           </div>

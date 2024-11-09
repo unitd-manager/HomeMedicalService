@@ -13,7 +13,9 @@ export default function Shop() {
   const [cart, setCart] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [contactId, setContactId] = useState('');
+  // const [basket, setBasket] = useState('');
   const [showGoToCart, setShowGoToCart] = useState(false);
+  console.log('showGoToCart',showGoToCart)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,12 +29,7 @@ export default function Shop() {
     } else {
       setIsLoggedIn(false);
     }
-
-    // Load cart items specific to the logged-in user from localStorage if they exist
-    const storedCart = JSON.parse(localStorage.getItem(`cart_${contactId}`)) || [];
-    setCart(storedCart);
-    setShowGoToCart(storedCart.length > 0); // Show "Go to Cart" button if cart is not empty
-  }, [contactId]); // Make sure to re-run the effect when contactId changes
+  }, []);
 
   const getShop = () => {
     api
@@ -50,16 +47,16 @@ export default function Shop() {
   };
 
   const handleAddToCart = (item) => {
+
+    console.log('item',item)
     if (!isLoggedIn) {
       alert("You must be logged in to add items to your cart.");
       return;
     }
 
-    // Retrieve cart data specific to the logged-in user
-    const storedCart = JSON.parse(localStorage.getItem(`cart_${contactId}`)) || [];
-
     // Check if item is already in the cart
-    const existingItem = storedCart.find(cartItem => cartItem.product_id === item.product_id);
+    const existingItem = cart.find(cartItem => cartItem.product_id === item.product_id);
+    console.log('existingItem',existingItem)
     if (existingItem) {
       alert("This item is already in your cart.");
       return;
@@ -78,19 +75,28 @@ export default function Shop() {
         added_to_cart_date: new Date().toISOString().slice(0, 19).replace("T", " "),
       })
       .then(() => {
-        const updatedCart = [...storedCart, { ...item, qty, unit_price }];
-        setCart(updatedCart);
+        setCart([...cart, { ...item, qty, unit_price }]);
         setShowGoToCart(true); // Show "Go to Cart" button
-
-        // Store updated cart for the specific user in localStorage
-        localStorage.setItem(`cart_${contactId}`, JSON.stringify(updatedCart));
-
         alert("Item added to cart successfully!");
       })
       .catch((error) => {
         console.error("Error adding item to cart:", error.response ? error.response.data : error);
       });
+  }; 
+
+  const getBasket = () => {
+    api
+      .post("/orders/getBaskets", { contact_id: contactId })
+      .then((res) => {
+        setCart(res.data.data);
+      })
+      .catch(() => {});
   };
+
+  useEffect(() => {
+    getBasket();
+  }
+  )
 
   return (
     <div className="page-content bg-white">
@@ -173,7 +179,7 @@ export default function Shop() {
               </div>
             ))}
           </div>
-          {showGoToCart && (
+          {cart.length && (
             <div className="text-center mt-4">
               <button className="btn btn-primary" onClick={() => navigate("/add-cart")}>
                 Go to Cart

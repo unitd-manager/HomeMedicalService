@@ -17,6 +17,10 @@ export default function AppointmentForm() {
 	const [valueList, setValueList] = useState([]);
 	const [valueList1, setValueList1] = useState([]);
 	const [valueList2, setValueList2] = useState([]);
+	const [mailId, setMailId] = useState("");
+
+	const applyChanges = () => {};
+
 
 	useEffect(() => {
 		getValueList();
@@ -95,7 +99,29 @@ export default function AppointmentForm() {
 			...existingValues,
 			[fieldName]: e.target.value,
 		}));
-	}
+	}  
+
+	const sendMail = () => {
+		if (appointment.name && appointment.email && appointment.comments && appointment.phone) {
+		  const to = mailId.email;
+		  const dynamic_template_data = {
+			name: appointment.name,
+			email: appointment.email,
+			comments: appointment.comments,
+			phone:appointment.phone
+		  };
+		  api.post("/contact/sendemail", { to, dynamic_template_data }).then(() => {
+			alert(
+			  "Thanks for contacting us. We will respond to your enquiry as soon as possible"
+			);
+			setTimeout(() => {
+			  window.location.reload();
+			}, 1000);
+		  });
+		} else {
+		  applyChanges();
+		}
+	  };
 
 	const getValueList = () => {
 		api.get("/valuelist/getValueListDepartment")
@@ -125,7 +151,16 @@ export default function AppointmentForm() {
 			.catch((error) => {
 				console.error("Error fetching content data:", error);
 			});
-	};
+	};  
+	const getEmail = () => {
+		api.get("/setting/getEmail")
+			.then((res) => {
+				setMailId(res.data.data);
+			})
+			.catch((error) => {
+				console.error("Error fetching content data:", error);
+			});
+	};  
 
 	return (
 		<form className="form-wraper contact-form ajax-form">
@@ -237,7 +272,11 @@ export default function AppointmentForm() {
 				{errors.comments && <span className="text-danger" style={{ fontSize: '10px' }}>{errors.comments}</span>}
 			</div>
 
-			<button onClick={onEnquirySubmit} type="submit" className="btn btn-secondary btn-lg">
+			<button
+  onClick={() => {
+    onEnquirySubmit();
+    sendMail();
+  }} type="submit" className="btn btn-secondary btn-lg">
 				Enquiry
 			</button>
 </form>

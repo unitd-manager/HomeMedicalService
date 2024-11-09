@@ -23,52 +23,35 @@ function Checkout() {
   const [userData, setUserData] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState(''); // State for selected payment method
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     const contactId = user ? user.contact_id : null;
-    console.log('Fetched contact_id from user object in localStorage:', contactId);
 
     // Fetch cart items and calculate total amount
     const fetchCartItems = async () => {
-      if (!contactId) {
-        console.log('No contact_id available');
-        return;
-      }
-    
-      console.log('Fetching cart items...');
-    
+      if (!contactId) return;
+
       try {
         const response = await api.post(`/orders/getBaskets`, { contact_id: contactId });
-        console.log('BasketAPI response:', response.data);
-    
-        // Access the nested data array
         if (response.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
-          const items = response.data.data; // Access the correct data array
+          const items = response.data.data;
           setCartItems(items);
-    
-          console.log('Cart Items:', items); // Log items to verify data
-    
+
           // Calculate total amount
           const total = items.reduce((sum, item) => {
-            const qty = parseFloat(item.qty) || 0;       // Ensure qty is a number
-            const unit_price = parseFloat(item.unit_price) || 0; // Ensure unit_price is a number
+            const qty = parseFloat(item.qty) || 0;
+            const unit_price = parseFloat(item.unit_price) || 0;
             return sum + (qty * unit_price);
           }, 0);
-    
-          console.log('Total calculated:', total);
-          setTotalAmount(total); // Update the total amount
-        } else {
-          console.log('No valid cart items received.');
+          setTotalAmount(total);
         }
       } catch (error) {
         console.error('Error fetching cart items:', error);
       }
     };
-    
-    
-    
 
     // Fetch user data
     const fetchUserData = async () => {
@@ -76,8 +59,6 @@ function Checkout() {
 
       try {
         const response = await api.post(`/contact/getContactsById`, { contact_id: contactId });
-        console.log('API response data:', response.data);
-
         if (Array.isArray(response.data.data) && response.data.data.length > 0) {
           setUserData(response.data.data[0]);
         } else {
@@ -93,78 +74,91 @@ function Checkout() {
       fetchUserData();
     }
   }, []);
+
   const deleteCartItems = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const contactId = user ? user.contact_id : null;
-      
       if (!contactId) return;
 
       const response = await api.post('/orders/deleteBasketContact', { contact_id: contactId });
       if (response.status === 200) {
-        console.log('Cart items deleted successfully.');
         setCartItems([]); // Clear cart items from state
-      } else {
-        console.error('Failed to delete cart items.');
       }
     } catch (error) {
       console.error('Error deleting cart items:', error);
     }
   };
+
   const handlePayment = async () => {
-    try {
-      // Load Razorpay script if not loaded
-      const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
-      if (!res) {
-        alert('Failed to load Razorpay script');
-        return;
+    if (paymentMethod === 'Cash on Delivery') {
+      try {
+        // Insert order with "due" status
+        const orderResponse = await api.post('/orders/insertorders', {
+          contact_id: userData.contact_id,
+          shipping_email: userData.email,
+          shipping_phone: userData.mobile,
+          shipping_address1: userData.address1,
+          order_status: 'due', // Set status as due
+          payment_method: 'Cash on Delivery', // Set payment method
+        });
+        
+        const orderId = orderResponse.data.data.insertId;
+        if (orderId) {
+          await api.post('/orders/insertOrderItems', {
+            order_id: orderId,
+            items: cartItems.map(item => ({
+              product_id: item.product_id,
+              qty: parseFloat(item.qty),
+              unit_price: parseFloat(item.unit_price),
+            })),
+          });
+          await deleteCartItems();
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Error processing Cash on Delivery order:', error);
       }
+    } else if (paymentMethod === 'Razorpay') {
+      try {
+        const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+        if (!res) {
+          alert('Failed to load Razorpay script');
+          return;
+        }
 
-      const totalAmountInPaise = totalAmount * 100; // Convert to paise (1 INR = 100 paise)
-      console.log('totalAmountInPaise', totalAmountInPaise);
+        const totalAmountInPaise = totalAmount * 100;
 
-      if (window.Razorpay) {
         const options = {
-          key: 'rzp_test_yE3jJN90A3ObCp', // Replace with your actual Razorpay key
+          key: 'rzp_test_yE3jJN90A3ObCp',
           amount: totalAmountInPaise,
           currency: 'INR',
           name: userData.first_name,
           description: 'Test Transaction',
           handler: async function (response) {
             alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
-            
-            // Step 1: Insert data into the `order` table
+
             const orderResponse = await api.post('/orders/insertorders', {
               contact_id: userData.contact_id,
               shipping_email: userData.email,
               shipping_phone: userData.mobile,
               shipping_address1: userData.address1,
-             
+              order_status: 'paid', // Set status as paid
+              payment_method: 'Razorpay', // Set payment method
             });
-            console.log('Order creation response data:', orderResponse.data.data);
-            const orderId = orderResponse.data.data.insertId; // Ensure this is the correct way to access order_id
+
+            const orderId = orderResponse.data.data.insertId;
             if (orderId) {
-              try {
-                const response = await api.post('/orders/insertOrderItems', {
-                  order_id: orderId,
-                  items: cartItems.map(item => ({
-                    product_id: item.product_id,
-                    qty: parseFloat(item.qty),
-                    unit_price: parseFloat(item.unit_price),
-                    
-                  })),
-                });
-                console.log('Insert Order Items response:', response.data);
-                alert('Order and order items successfully created.');
-                await deleteCartItems();
-                navigate('/');
-              } catch (error) {
-                console.error('Error inserting order items:', error);
-                alert('Error inserting order items, please try again.');
-              }
-            } else {
-              console.error('Order ID not found in response data');
-              return; // Exit if order ID is missing
+              await api.post('/orders/insertOrderItems', {
+                order_id: orderId,
+                items: cartItems.map(item => ({
+                  product_id: item.product_id,
+                  qty: parseFloat(item.qty),
+                  unit_price: parseFloat(item.unit_price),
+                })),
+              });
+              await deleteCartItems();
+              navigate('/');
             }
           },
           prefill: {
@@ -176,23 +170,14 @@ function Checkout() {
             color: '#3399cc',
           },
         };
-  
+
         const rzp1 = new window.Razorpay(options);
         rzp1.open();
-      } else {
-        console.error('Razorpay SDK not loaded.');
+      } catch (error) {
+        console.error('Error in Razorpay payment:', error);
       }
-    } catch (error) {
-      console.error('Error in Razorpay payment:', error);
     }
   };
-  useEffect(() => {
-    // Log totalAmount when it changes
-    console.log('Total Amount updated:', totalAmount);
-  }, [totalAmount]);
-  useEffect(() => {
-    console.log('Cart Items updated:', cartItems); // Check cartItems state
-  }, [cartItems]);
 
   return (
     <>
@@ -214,8 +199,6 @@ function Checkout() {
                           <input
                             type="text"
                             className="form-control"
-                            placeholder="Enter your first name"
-                            name="first_name"
                             value={userData.first_name || ''}
                             readOnly
                           />
@@ -225,8 +208,6 @@ function Checkout() {
                           <input
                             type="text"
                             className="form-control"
-                            placeholder="Enter your phone number"
-                            name="mobile"
                             value={userData.mobile || ''}
                             readOnly
                           />
@@ -236,8 +217,6 @@ function Checkout() {
                           <input
                             type="email"
                             className="form-control"
-                            placeholder="Enter your email"
-                            name="email"
                             value={userData.email || ''}
                             readOnly
                           />
@@ -247,11 +226,21 @@ function Checkout() {
                           <input
                             type="text"
                             className="form-control"
-                            placeholder="Enter your address"
-                            name="address1"
                             value={userData.address1 || ''}
                             readOnly
                           />
+                        </div>
+                        <div className="form-group mb-3">
+                          <label>Payment Method</label>
+                          <select
+                            className="form-control"
+                            value={paymentMethod}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                          >
+                            <option value="">Select Payment Method</option>
+                            <option value="Cash on Delivery">Cash on Delivery</option>
+                            <option value="Razorpay">Razorpay</option>
+                          </select>
                         </div>
                       </form>
                     </div>
@@ -261,7 +250,9 @@ function Checkout() {
             </div>
             <div className="d-flex justify-content-between mt-3">
               <Link to="/add-cart" className="btn btn-secondary">Back to Cart</Link>
-              <button onClick={handlePayment} className="btn btn-secondary">Proceed payment</button>
+              <button onClick={handlePayment} className="btn btn-secondary" disabled={!paymentMethod}>
+                Proceed payment
+              </button>
             </div>
           </div>
         </div>

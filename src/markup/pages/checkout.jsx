@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../constants/api';
@@ -23,6 +23,7 @@ function Checkout() {
   const [userData, setUserData] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -92,7 +93,24 @@ function Checkout() {
       fetchUserData();
     }
   }, []);
+  const deleteCartItems = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const contactId = user ? user.contact_id : null;
+      
+      if (!contactId) return;
 
+      const response = await api.post('/orders/deleteBasketContact', { contact_id: contactId });
+      if (response.status === 200) {
+        console.log('Cart items deleted successfully.');
+        setCartItems([]); // Clear cart items from state
+      } else {
+        console.error('Failed to delete cart items.');
+      }
+    } catch (error) {
+      console.error('Error deleting cart items:', error);
+    }
+  };
   const handlePayment = async () => {
     try {
       // Load Razorpay script if not loaded
@@ -138,6 +156,8 @@ function Checkout() {
                 });
                 console.log('Insert Order Items response:', response.data);
                 alert('Order and order items successfully created.');
+                await deleteCartItems();
+                navigate('/');
               } catch (error) {
                 console.error('Error inserting order items:', error);
                 alert('Error inserting order items, please try again.');

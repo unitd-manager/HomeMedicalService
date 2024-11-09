@@ -131,7 +131,7 @@ function Cart() {
                       value={item.qty}
                       onChange={(e) => handleQtyChange(item.basket_id, e.target.value)}
                       className="form-control" 
-                      style={{ width: '100px' }} // Set width for smaller input
+                      style={{ width: '80px', marginTop:'-8px' }} 
                       min="1"
                     />
                   </div>

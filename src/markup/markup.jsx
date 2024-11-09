@@ -30,6 +30,7 @@ import Error from './pages/error-404';
 import AddCart from './pages/add-cart';
 import MyAccount from './pages/my-account';
 import Checkout from './pages/checkout';
+import Payment from './pages/payment';
 
 const Markup = () => {
 		return(
@@ -57,6 +58,8 @@ const Markup = () => {
 							<Route path="*" element={<Error />} />
 							<Route path="/add-cart" element={<AddCart />} />
 							<Route path="/checkout" element={<Checkout />} />
+							<Route path="/payment" element={<Payment />} />
+
 						</Route>
 						
 						<Route path="/form-login" element={<FormLogin />} />

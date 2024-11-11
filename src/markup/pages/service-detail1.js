@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../constants/api";
 
 
@@ -12,6 +12,8 @@ import plusBlue from "../../images/shap/plus-blue.png";
 
 export default function News() {
 	const [CategoryOne, setCategoryOne] = useState([]);
+	const navigate = useNavigate();
+
 
 	useEffect(() => {
 		getCategoryOne();
@@ -65,7 +67,16 @@ export default function News() {
 					<section className="section-area section-sp1">
 						<div className="container">
 						<h2>{CategoryOne.length > 0 ? CategoryOne[0].category_title : 'Category Two'}</h2> {/* Add heading for Category One */}
-
+						<div className="text-center mt-4">
+					
+            </div>
+			<button
+    className="btn btn-primary"
+	style={{ width: "200px", padding: "12px 24px", fontSize: "18px" }}
+	    onClick={() => navigate("/services")}
+  >
+    Book Service
+  </button>
 							<div className="row">
 							{CategoryOne.map((data, index) => (
 

@@ -128,7 +128,15 @@ function Login()  {
 									<div className="text-center mt-40">
 										<p className="mt-0">Don't have an account?</p>
 										<Link className="btn btn-lg btn-secondary w-100" data-toggle="tab" to="/form-register">Register</Link>
-									</div>											
+									</div>	
+									<div className="text-center mt-4">
+								<button
+		className="btn btn-outline-primary btn-sm" 
+										onClick={() => navigate('/')}
+									>
+										Back to Home
+									</button>
+								</div>										
 								</form>
 							</div>
 						</div>

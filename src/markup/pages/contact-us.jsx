@@ -80,6 +80,25 @@ const ContactUs = () => {
       });
   };
 
+  const sendMail = () => {
+		if (user.customer_name && user.email && user.comments && user.phone) {
+			const to = mailId.mailId
+			const dynamic_template_data = {
+				customer_name: user.customer_name,
+				email: user.email,
+				comments: user.comments,
+				phone: user.phone
+			};
+			api.post("/contact/sendemail2", { to, dynamic_template_data })
+			.then(() => {
+				message.success("Thanks for contacting us. We will respond to your enquiry as soon as possible");
+			})
+			.catch((error) => {
+				console.error("Email send error:", error);
+			});
+		}
+	};
+
   const onCaptchaChange = (value) => {
     setCaptchaValue(value);
   };
@@ -88,7 +107,7 @@ const ContactUs = () => {
   const getEmail = async () => {
     try {
       const res = await api.get('/setting/getEmail');
-      setMailId(res.data.data[0]);
+      setMailId(res.data.data);
     } catch (error) {
       console.error("Error fetching email:", error);
     }
@@ -246,7 +265,11 @@ const ContactUs = () => {
                 </div>
                 <div className="icon-content">
                   <h5 className="ttr-title">Email Address</h5>
-                  <p>{mailId.mail}</p>
+                  {mailId.map((email, index) => (
+                        <div key={index}>
+                          <a href={`mailto:${email.mailId}`}>{email.mailId}</a>
+                        </div>
+                      ))}
                 </div>
               </div>
             </div>

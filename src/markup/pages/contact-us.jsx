@@ -68,17 +68,20 @@ const ContactUs = () => {
     }
 
     api.post("/enquiry/insertEnquiry", user)
-      .then((res) => {
-        setSuccessMessage("Thank you for reaching out! Your message has been successfully submitted.");
-        setUser({ customer_name: "", email: "", phone: "", comments: "" }); // Reset form fields
-        setCaptchaValue(null); // Reset CAPTCHA
-        message.success("Form submitted successfully!");
-      })
-      .catch((err) => {
-        message.error("An error occurred while submitting the form.");
-        console.log(err);
-      });
-  };
+    .then((res) => {
+      setSuccessMessage("Thank you for reaching out! Your message has been successfully submitted.");
+      setUser({ customer_name: "", email: "", phone: "", comments: "" });
+      setCaptchaValue(null);
+      message.success("Form submitted successfully!");
+
+      // Call sendMail function to send the email after form submission
+      sendMail();
+    })
+    .catch((err) => {
+      message.error("An error occurred while submitting the form.");
+      console.error(err);
+    });
+};
 
   const sendMail = () => {
 		if (user.customer_name && user.email && user.comments && user.phone) {
@@ -264,12 +267,13 @@ const ContactUs = () => {
                   <img src={icon3} alt="" />
                 </div>
                 <div className="icon-content">
-                  <h5 className="ttr-title">Email Address</h5>
-                  {mailId.map((email, index) => (
+                <h4 className="title">Email Addresses</h4>
+                      {mailId && mailId.map((email, index) => (
                         <div key={index}>
                           <a href={`mailto:${email.mailId}`}>{email.mailId}</a>
                         </div>
                       ))}
+                
                 </div>
               </div>
             </div>

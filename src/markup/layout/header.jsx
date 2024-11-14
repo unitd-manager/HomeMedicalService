@@ -6,7 +6,7 @@ import api from "../../constants/api";
 
 // Images
 import logo from "../../images/icon.png";
-import logoWhite from "../../images/logo-white.png";
+import logoWhite from "../../images/icon.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

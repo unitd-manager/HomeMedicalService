@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import testPic1 from "../../images/about/HospitalAddress33.jpg";
 import api from "../../constants/api";
 
 const TestimonialSection = () => {
@@ -57,20 +58,28 @@ const TestimonialSection = () => {
               </h6>
               <h2 className="title m-b0">{content && content.title}</h2>
               <div className="col-lg-12">
-                <div className="media-outline">
-                  <div className="media-shape">
+                <div className="media-outline" style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+                  <div className="about-thumb1">
                     <img
                       src={`https://homeservices.unitdtechnologies.com/storage/uploads/${content && content.file_name}`}
                       alt=""
+                      style={{ width: '400px', height: '500px' }}
                     />
                   </div>
+                  {/* <div className="about-thumb1">
+                    <img
+                      src={testPic1}
+                      alt=""
+                      style={{ width: '300px', height: '400px' }}
+                    />
+                  </div> */}
                 </div>
               </div>
             </div>
             {Array.isArray(contentTab) &&
               contentTab.map((item, index) => (
-                <div key={index} className="col-lg-4 col-md-6 mb-30">
-                  <div className="features-container features-bx2">
+                <div key={index} className="col-lg-4 col-sm-6 mb-30">
+                  <div className="features-container features-bx4">
                     <div className="features-box-md mb-20">
                       <span className="icon-cell">
                         <img
@@ -98,6 +107,7 @@ const TestimonialSection = () => {
                 </div>
               ))}
           </div>
+        
         </div>
       </section>
     </>

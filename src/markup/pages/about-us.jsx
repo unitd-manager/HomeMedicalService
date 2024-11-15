@@ -7,7 +7,7 @@ import AboutPanel3 from "../pages/aboutusPanel3";
 import AboutPanel5 from "../pages/aboutusPanel5";
 import OurStory from "./ourStory";
 import AboutPanel2 from "../pages/aboutusPanel2";
-import AboutPanel4 from "../pages/aboutusPanel4";
+// import AboutPanel4 from "../pages/aboutusPanel4";
 import Quotes from "../pages/Quotes";
 import bnrImg1 from "../../images/banner/img1.jpg";
 import waveBlue from "../../images/shap/wave-blue.png";
@@ -46,7 +46,6 @@ const aboutus = () => {
 
 					<AboutPanel3 />
 
-					<AboutPanel4/>
 					
 					<OurStory />
 

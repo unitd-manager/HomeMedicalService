@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import testShape from "../../images/testimonials/shape.png";
-import testPic1 from "../../images/testimonials/pic1.jpg";
-import testPic2 from "../../images/testimonials/pic2.jpg";
-import testPic3 from "../../images/testimonials/pic3.jpg";
-import testPic4 from "../../images/testimonials/pic4.jpg";
-import testPic5 from "../../images/testimonials/pic5.jpg";
-import testPic6 from "../../images/testimonials/pic6.jpg";
+// import { Link } from "react-router-dom";
+import testShape from "../../images/testimonials/image.png";
+// import testPic1 from "../../images/testimonials/pic1.jpg";
+// import testPic2 from "../../images/testimonials/pic2.jpg";
+// import testPic3 from "../../images/testimonials/pic3.jpg";
+// import testPic4 from "../../images/testimonials/pic4.jpg";
+// import testPic5 from "../../images/testimonials/pic5.jpg";
+// import testPic6 from "../../images/testimonials/pic6.jpg";
 import plusOrange from "../../images/shap/plus-orange.png";
 import squareBlue from "../../images/shap/square-blue.png";
 import circleDots from "../../images/shap/circle-dots.png";
@@ -51,8 +51,9 @@ const TestimonialSection = () => {
           <div className="row align-items-center">
             <div className="col-lg-6 text-center">
               <div className="thumb-wraper">
-                <img className="bg-img" src={testShape} alt="" />
-                <ul>
+                <img className="bg-img" src={testShape} alt="" 
+                style={{ width: '350px', height: '250px' }}/>
+                {/* <ul>
                   <li data-member="1">
                     <Link to="#">
                       <img src={testPic1} alt="" />
@@ -83,7 +84,7 @@ const TestimonialSection = () => {
                       <img src={testPic6} alt="" />
                     </Link>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
             <div className="col-lg-6">

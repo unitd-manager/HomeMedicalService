@@ -3,12 +3,11 @@ import api from "../../constants/api";
 
 // Import Images
 import bg1 from '../../images/main-banner/bg1.jpg';
-import doctorImg from '../../images/main-banner/oldpeople.jpg';
-// import ptImg1 from '../../images/shap/trangle-orange.png';
-// import ptImg2 from '../../images/shap/square-blue.png';
-import ptImg3 from '../../images/shap/chicle-blue-2.png';
-// import ptImg4 from '../../images/shap/plus-orange.png';
-import ptImg5 from '../../images/shap/wave-orange.png';
+import doctorImg from '../../images/main-banner/Home345.png';
+import ptImg1 from '../../images/shap/trangle-orange.png';
+import ptImg2 from '../../images/shap/square-blue.png';
+import ptImg4 from '../../images/shap/plus-orange.png';
+
 
 export default function AboutSection() {
 
@@ -39,7 +38,7 @@ export default function AboutSection() {
 							{/* Image on the left */}
 							<div className="col-lg-5 col-md-6 col-sm-5">
 								<div className="banner-img">
-								<img src={doctorImg} alt="Doctor" style={{ width: '500px', height: 'auto' }} />
+								<img src={doctorImg} alt="Doctor"  />
 								</div>
 							</div>
 							{/* Text on the right */}
@@ -52,14 +51,11 @@ export default function AboutSection() {
 						</div>
 										))}
 
-					</div>
-					{/* Uncomment these if you want to use the decorative images */}
-					{/* <img className="pt-img1 animate1" src={ptImg1} alt=""/>
-					<img className="pt-img2 animate2" src={ptImg2} alt=""/> */}
-					<img className="pt-img3 animate3" src={ptImg3} alt=""/>
-					{/* <img className="pt-img4 animate4" src={ptImg4} alt=""/> */}
-					<img className="pt-img5 animate-wave" src={ptImg5} alt=""/>
-				</div>
+</div>
+				<img className="pt-img1 animate1" src={ptImg1} alt="Orange Triangle" />
+				<img className="pt-img2 animate2" src={ptImg2} alt="Blue Square" />
+				<img className="pt-img4 animate4" src={ptImg4} alt="Orange Plus" />
+			</div>
 			</>
 		);
 	}

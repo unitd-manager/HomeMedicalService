@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Import Images
-import aboutThumb1 from '../../images/about/pic-1.jpg';
-import aboutThumb2 from '../../images/about/pic-2.jpg';
-import aboutThumb3 from '../../images/about/pic-3.jpg';
+import aboutThumb1 from '../../images/about/doc1.jpg';
+import aboutThumb2 from '../../images/about/doc2.jpg';
+import aboutThumb3 from '../../images/about/doc3.jpg';
 import ptImg1 from '../../images/shap/wave-orange.png';
 import ptImg2 from '../../images/shap/circle-small-blue.png';
 import ptImg4 from '../../images/shap/square-dots-orange.png';
@@ -40,8 +40,8 @@ const AboutSection = () => {
 							<div className="col-lg-6 mb-30">
 								<div className="about-thumb-area">
 									<ul>
-										<li><img className="about-thumb1" src={aboutThumb1} alt=""/></li>
-										<li><img className="about-thumb2" src={aboutThumb2} alt=""/></li>
+										<li><img className="about-thumb1" src={aboutThumb1} alt="" style={{ width: '250px', height: '300px' }}/></li>
+										<li><img className="about-thumb2" src={aboutThumb2} alt="" style={{ width: '250px', height: '300px' }}/></li>
 										<li><img className="about-thumb3" src={aboutThumb3} alt=""/></li>
 										<li><div className="exp-bx">2+<span>Years Experience</span></div></li>
 									</ul>

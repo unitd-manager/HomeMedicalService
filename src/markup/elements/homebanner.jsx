@@ -12,9 +12,12 @@ import ptImg4 from '../../images/shap/plus-orange.png';
 export default function AboutSection() {
 
 	const [content, setContent] = useState([]);
+	const [content1, setContent1] = useState([]);
+
 
 	useEffect(() => {
 		getContent();
+		getContent1();
 	}, []);
 
 	const getContent = () => {
@@ -27,6 +30,23 @@ export default function AboutSection() {
 			console.error("Error fetching content data:", error);
 		  });
 	};
+
+	const getContent1 = () => {
+		api
+		  .get("/content/Who")
+		  .then((res) => {
+			setContent1(res.data.data);
+		  })
+		  .catch((error) => {
+			console.error("Error fetching content data:", error);
+		  });
+	};
+	const stripHtmlTags = (input) => {
+		let tempDiv = document.createElement("div");
+		tempDiv.innerHTML = input;
+		return tempDiv.textContent || tempDiv.innerText || "";
+	  };
+
 
 	return (
 			<>
@@ -47,9 +67,12 @@ export default function AboutSection() {
     <h4>{data.description}</h4>
     <a href="tel:+919000191112" className="btn btn-secondary btn-lg shadow" style={{ marginRight: '10px' }}>Call Us</a>
     <a href="https://wa.me/919000191112" className="btn btn-secondary btn-lg shadow">WhatsApp Us</a>
+	<br/>
+	<p style={{ marginTop: '40px', fontSize:"12px", color:"#000080"}}>{content1[0].description ? stripHtmlTags(content1[0].description) : ''}</p>
 </div>
 						</div>
 										))}
+										
 
 </div>
 				<img className="pt-img1 animate1" src={ptImg1} alt="Orange Triangle" />

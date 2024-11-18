@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 // Elements
 import AboutSection from "../pages/about";
+import Goal from "../pages/goal";
 import AboutPanel3 from "../pages/aboutusPanel3";
 import AboutPanel5 from "../pages/aboutusPanel5";
 import OurStory from "./ourStory";
@@ -41,6 +42,8 @@ const aboutus = () => {
 					</div>
 					
 					<AboutSection />
+					
+					<Goal/>
 					
 					<AboutPanel2 />
 

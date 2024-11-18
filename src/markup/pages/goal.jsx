@@ -10,7 +10,7 @@ const Choose = () => {
   // Fetch content from API
   const getContent = () => {
     api
-      .get("/content/WhyChooseUs")
+      .get("/content/Goals")
       .then((res) => {
         console.log(res.data); // Log to check the response structure
         if (res.data && res.data.data && res.data.data.length > 0) {
@@ -35,39 +35,42 @@ const Choose = () => {
 
   return (
     <>
-      <div className="author-box blog-user mb-50">
-	  <div
-          className="author-profile"
-          style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}
-        >
-		<div className="col-lg-6 mb-30" style={{ marginBottom: "30px" }}>
-		<img
-                  src={`https://homeservices.unitdtechnologies.com/storage/uploads/${content.file_name}`}
-              alt="Author"
-              style={{
-                display: "block",
-                margin: "0 auto",
-                width: "300px",
-                height: "auto",
-              }}
-            />
-			</div>
-          <div className="author-profile-content">
-           
-              <>
-                <h5>{content.title}</h5>
-				<div
+      <section className="section-sp1 about-area">
+      <div className="container">
+        <div className="row align-items-center">
+          {/* Left Column */}
+          <div className="col-lg-6 mb-30">
+            <div className="heading-bx">
+              {/* <h6 className="title-ext text-secondary">About Us</h6> */}
+              <h2 className="title">{content.title}</h2>
+              {/* Render the formatted description */}
+              <div
                         dangerouslySetInnerHTML={{
                           __html: content.description
                             ? formatTextAsList(content.description)
                             : "",
                         }}
                       />
-              </>
+              {/* Read More/Less Button */}
+           
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="col-lg-6 mb-30">
+            <div >
+              {/* Render Image */}
           
+                <img
+                  src={`https://homeservices.unitdtechnologies.com/storage/uploads/${content.file_name}`}
+                  alt="Content Illustration"
+                />
+            
+            </div>
           </div>
         </div>
       </div>
+    </section>
     </>
   );
 };

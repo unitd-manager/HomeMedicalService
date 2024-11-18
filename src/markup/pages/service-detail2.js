@@ -22,18 +22,19 @@ export default function News() {
 	
 	const getCategoryTwo = () => {
 		api
-			.get('/section/getService3')
+			.get('/section/getServiceHmeService')
 			.then((res) => {
 				setCategoryTwo(res.data.data);
 			})
 			.catch(() => {});
 	};
 
-	const stripHtmlTags = (input) => {
-		let tempDiv = document.createElement("div");
-		tempDiv.innerHTML = input;
-		return tempDiv.textContent || tempDiv.innerText || "";
-	};
+	const formatTextAsList = (input) => {
+		if (!input) return "";
+		const lines = input.split("\n");
+		return `<ul>${lines.map((line) => `<li>${line.trim()}</li>`).join("")}</ul>`;
+	  };
+	
 
 
 		return (
@@ -64,26 +65,37 @@ export default function News() {
 					<section className="section-area section-sp1">
 						<div className="container">
 						<h2>{CategoryTwo.length > 0 ? CategoryTwo[0].category_title : 'Category Three'}</h2> {/* Add heading for Category One */}
-						<div className="text-center mt-4">
-						
-            </div>
+						  {/* Book Service Button */}
+						  <div className="text-center mt-5 mb-5">
 			<button
-    className="btn btn-primary"
-	style={{ width: "200px", padding: "12px 24px", fontSize: "18px" }}
-	    onClick={() => navigate("/services")}
+    className="btn btn-primary btn-lg"
+    style={{
+      width: "250px",
+      padding: "15px 30px",
+      fontSize: "20px",
+      fontWeight: "bold",
+      borderRadius: "10px",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    }}
+    onClick={() => navigate("/services")}
   >
     Book Service
   </button>
+  </div>
+
 							<div className="row">
 							{CategoryTwo.map((data, index) => (
 
 								<div className="col-lg-4 col-md-6 mb-30">
-									<div className="feature-container feature-bx2 feature1">
-										<div className="icon-content">
-											<h3 className="ttr-title">{data.title}</h3>
-											<p>{data.product_description ? stripHtmlTags(data.product_description) : ''}</p>
-											{/* <Link to="/service-detail" className="btn btn-primary light">View More</Link> */}
-										</div>
+									<div className="feature-container feature-bx4">
+									<div className="icon-content">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: data.product_description ? formatTextAsList(data.product_description) : "",
+                          }}
+                        />
+                      </div>
+                
 									</div>
 								</div>
 								     ))}

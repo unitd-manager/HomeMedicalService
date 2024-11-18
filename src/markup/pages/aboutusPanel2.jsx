@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
-import testShape from "../../images/testimonials/image.png";
+import testShape from "../../images/testimonials/old couple.png";
 // import testPic1 from "../../images/testimonials/pic1.jpg";
 // import testPic2 from "../../images/testimonials/pic2.jpg";
 // import testPic3 from "../../images/testimonials/pic3.jpg";
@@ -53,38 +53,7 @@ const TestimonialSection = () => {
               <div className="thumb-wraper">
                 <img className="bg-img" src={testShape} alt="" 
                 style={{ width: '350px', height: '250px' }}/>
-                {/* <ul>
-                  <li data-member="1">
-                    <Link to="#">
-                      <img src={testPic1} alt="" />
-                    </Link>
-                  </li>
-                  <li data-member="2">
-                    <Link to="#">
-                      <img src={testPic2} alt="" />
-                    </Link>
-                  </li>
-                  <li data-member="3">
-                    <Link to="#">
-                      <img src={testPic3} alt="" />
-                    </Link>
-                  </li>
-                  <li data-member="4">
-                    <Link to="#">
-                      <img src={testPic4} alt="" />
-                    </Link>
-                  </li>
-                  <li data-member="5">
-                    <Link to="#">
-                      <img src={testPic5} alt="" />
-                    </Link>
-                  </li>
-                  <li data-member="6">
-                    <Link to="#">
-                      <img src={testPic6} alt="" />
-                    </Link>
-                  </li>
-                </ul> */}
+           
               </div>
             </div>
             <div className="col-lg-6">

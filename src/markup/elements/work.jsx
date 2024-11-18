@@ -80,7 +80,7 @@ export default function AboutSection() {
 	
           <div className="container-sm">
             <div className="heading-bx text-center">
-              <h6 className="title-ext text-secondary">Working Process</h6>
+              {/* <h6 className="title-ext text-secondary">Working Process</h6> */}
               <h2 className="title">How it works?</h2>
             </div>
             <div className="row justify-content-center d-flex align-items-stretch">

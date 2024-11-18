@@ -29,19 +29,19 @@ const News = () => {
   };
 
   const getNews = () => {
-    api.get('/section/getService1')
+    api.get('/section/getServiceNurse')
       .then((res) => setNews(res.data.data))
       .catch(() => {});
   };
 
   const getCategoryOne = () => {
-    api.get('/section/getService2')
+    api.get('/section/getServiceNurseHome')
       .then((res) => setCategoryOne(res.data.data))
       .catch(() => {});
   };
 
   const getCategoryTwo = () => {
-    api.get('/section/getService3')
+    api.get('/section/getServiceHmeService')
       .then((res) => setCategoryTwo(res.data.data))
       .catch(() => {});
   };
@@ -51,27 +51,32 @@ const News = () => {
     tempDiv.innerHTML = input;
     return tempDiv.textContent || tempDiv.innerText || "";
   };
-
-  const truncateText = (text, maxLines) => {
-    const words = text.split(' ');
-    let truncated = '';
-    let lineCount = 0;
-    const lineLimit = 25;
-
-    for (const word of words) {
-      if (lineCount < maxLines) {
-        if ((truncated + word).length <= lineLimit * (lineCount + 2)) {
-          truncated += word + ' ';
-        } else {
-          truncated += '...';
-          break;
-        }
-      }
-      if (truncated.split(' ').length >= lineLimit) {
-        lineCount++;
-      }
+  const formatTextAsList = (input) => {
+    if (!input) return "";
+    const lines = input.split("\n");
+    return `<ul>${lines.map((line) => `<li>${line.trim()}</li>`).join("")}</ul>`;
+  };
+  
+  // Truncate the list and show only the first maxLines
+  const truncateList = (htmlText, maxLines) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlText;
+  
+    const listItems = tempDiv.querySelectorAll("li");
+    const truncatedList = Array.from(listItems).slice(0, maxLines).map(item => item.outerHTML).join("");
+  
+    // If the list has more items than maxLines, add an ellipsis
+    if (listItems.length > maxLines) {
+      return `<ul>${truncatedList}<li>...</li></ul>`;
     }
-    return truncated.trim();
+  
+    return `<ul>${truncatedList}</ul>`;
+  };
+  
+  // Combined function to format and truncate text
+  const processDescription = (description, maxLines) => {
+    const formattedText = formatTextAsList(description); // Format as list
+    return truncateList(formattedText, maxLines); // Truncate the list
   };
 
   // Custom arrow components
@@ -159,10 +164,15 @@ const News = () => {
                 <div className="slider-item" key={index}>
                   <div className="feature-container feature-bx2 feature1">
                     <div className="icon-content">
-                      <h3 className="ttr-title">{data.title}</h3>
-                      <p className="truncate-text">
-                        {data.product_description ? truncateText(stripHtmlTags(data.product_description), 2) : ''}
-                      </p>
+                    <div className="truncate-text">
+  {data.product_description ? (
+    <span
+      dangerouslySetInnerHTML={{
+        __html: processDescription(data.product_description, 1), // Adjust maxLines to show only the first point
+      }}
+    />
+  ) : null}
+</div>
                       <Link to="/service-detail" className="btn btn-primary light">View More</Link>
                     </div>
                   </div>
@@ -175,10 +185,15 @@ const News = () => {
                 <div className="slider-item" key={index}>
                   <div className="feature-container feature-bx2 feature1">
                     <div className="icon-content">
-                      <h3 className="ttr-title">{data.title}</h3>
-                      <p className="truncate-text">
-                        {data.product_description ? truncateText(stripHtmlTags(data.product_description), 2) : ''}
-                      </p>
+                    <div className="truncate-text">
+  {data.product_description ? (
+    <span
+      dangerouslySetInnerHTML={{
+        __html: processDescription(data.product_description, 1), // Adjust maxLines to show only the first point
+      }}
+    />
+  ) : null}
+</div>
                       <Link to="/service-detail1" className="btn btn-primary light">View More</Link>
                     </div>
                   </div>
@@ -191,10 +206,15 @@ const News = () => {
                 <div className="slider-item" key={index}>
                   <div className="feature-container feature-bx2 feature1">
                     <div className="icon-content">
-                      <h3 className="ttr-title">{data.title}</h3>
-                      <p className="truncate-text">
-                        {data.product_description ? truncateText(stripHtmlTags(data.product_description), 2) : ''}
-                      </p>
+                    <div className="truncate-text">
+  {data.product_description ? (
+    <span
+      dangerouslySetInnerHTML={{
+        __html: processDescription(data.product_description, 1), // Adjust maxLines to show only the first point
+      }}
+    />
+  ) : null}
+</div>
                       <Link to="/service-detail2" className="btn btn-primary light">View More</Link>
                     </div>
                   </div>

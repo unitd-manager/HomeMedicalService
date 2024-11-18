@@ -14,6 +14,8 @@ import FeatureSection3 from "../elements/feature-section3";
 import TeamSection from "../elements/team";
 import LatestNewsSection from "../elements/latest-news-slider";
 import Shop from "../elements/shop";
+import Icon from "../elements/iconproduct";
+
 
 export default function ServiceDetail() {
   const [service, setService] = useState({});
@@ -147,6 +149,7 @@ export default function ServiceDetail() {
         </div>
       </section>
      <Shop/>
+     <Icon/>
       <FeatureSection3 />
       <TeamSection />
       <LatestNewsSection />

@@ -62,39 +62,40 @@ class WidgetGallery extends Component {
 }
 
 const styles = {
-	galleryContainer: {
-	  display: 'flex',
-	  flexWrap: 'wrap', // Allows wrapping to the next row
-	  gap: '10px', // Space between items
-	  padding: 0,
-	  margin: 0,
-	  listStyleType: 'none', // Removes bullets
-	  justifyContent: 'center', // Centers items in the container
-	},
-	galleryItem: {
-	  flex: '1 0 18%', // Allows 5 items per row (100% / 5 = 20%, adjust for gap)
-	  maxWidth: '18%', // Ensure the items don't exceed their allocated space
-	  border: '2px solid #ccc', // Adds border to each item
-	  borderRadius: '8px', // Optional: Rounded corners
-	  padding: '5px', // Space between the border and content
-	  textAlign: 'center', // Centers the title below the image
-	  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional: Adds shadow
-	  display: 'flex', // Use flexbox to ensure equal item height
-	  flexDirection: 'column', // Aligns image and title vertically
-	  justifyContent: 'space-between', // Ensures title aligns at the bottom
-	},
-	galleryImage: {
-	  maxWidth: '100%',
-	  height: 'auto', // Maintain aspect ratio
-	  display: 'block',
-	  marginBottom: '5px', // Space between the image and title
-	},
-	imageTitle: {
-	  fontSize: '14px',
-	  color: '#333',
-	  textAlign: 'center',
-	  marginTop: '5px', // Add space between image and title
-	},
-  };
+  galleryContainer: {
+    display: 'flex',
+    flexWrap: 'wrap', // Allows wrapping to the next row
+    gap: '30px', // Space between items
+    padding: 0,
+    margin: 0,
+    listStyleType: 'none', // Removes bullets
+    justifyContent: 'center', // Centers items in the container
+  },
+  galleryItem: {
+    flex: '1 0 18%', // Allows 5 items per row (100% / 5 = 20%, adjust for gap)
+    maxWidth: '16%', // Ensure the items don't exceed their allocated space
+    border: '2px solid #ccc', // Adds border to each item
+    borderRadius: '8px', // Optional: Rounded corners
+    padding: '5px', // Space between the border and content
+    textAlign: 'center', // Centers the title below the image
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional: Adds shadow
+    display: 'flex', // Use flexbox to ensure equal item height
+    flexDirection: 'column', // Aligns image and title vertically
+    justifyContent: 'space-between', // Ensures title aligns at the bottom
+    alignItems: 'center', // Centers content horizontally
+  },
+  galleryImage: {
+    width: '100px', // Ensures image occupies the full width of the container
+    height: '100px', // Maintains aspect ratio
+    display: 'block',
+    marginBottom: '5px', // Space between the image and title
+  },
+  imageTitle: {
+    fontSize: '14px',
+    color: '#333',
+    textAlign: 'center',
+    marginTop: '5px', // Add space between image and title
+  },
+};
   
   export default WidgetGallery;

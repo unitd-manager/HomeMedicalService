@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import testPic1 from "../../images/about/HospitalAddress33.jpg";
+import testPic1 from "../../images/about/lakshimi mission hospital (1).png";
 import api from "../../constants/api";
 
 const TestimonialSection = () => {
@@ -63,16 +63,16 @@ const TestimonialSection = () => {
                     <img
                       src={`https://homeservices.unitdtechnologies.com/storage/uploads/${content && content.file_name}`}
                       alt=""
-                      style={{ width: '400px', height: '500px' }}
+                      style={{ width: '500px', height: '450px' }}
                     />
                   </div>
-                  {/* <div className="about-thumb1">
+                  <div className="about-thumb1">
                     <img
                       src={testPic1}
                       alt=""
-                      style={{ width: '300px', height: '400px' }}
+                      style={{ width: '500px', height: '450px' }}
                     />
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>

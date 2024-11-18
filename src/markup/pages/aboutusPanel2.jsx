@@ -52,7 +52,7 @@ const TestimonialSection = () => {
             <div className="col-lg-6 text-center">
               <div className="thumb-wraper">
                 <img className="bg-img" src={testShape} alt="" 
-                style={{ width: '350px', height: '250px' }}/>
+             />
            
               </div>
             </div>

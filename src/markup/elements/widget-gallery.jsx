@@ -64,38 +64,70 @@ class WidgetGallery extends Component {
 const styles = {
   galleryContainer: {
     display: 'flex',
-    flexWrap: 'wrap', // Allows wrapping to the next row
-    gap: '30px', // Space between items
+    flexWrap: 'wrap',
+    gap: '20px',
     padding: 0,
     margin: 0,
-    listStyleType: 'none', // Removes bullets
-    justifyContent: 'center', // Centers items in the container
+    listStyleType: 'none',
+    justifyContent: 'center',
   },
   galleryItem: {
-    flex: '1 0 18%', // Allows 5 items per row (100% / 5 = 20%, adjust for gap)
-    maxWidth: '16%', // Ensure the items don't exceed their allocated space
-    border: '2px solid #ccc', // Adds border to each item
-    borderRadius: '8px', // Optional: Rounded corners
-    padding: '5px', // Space between the border and content
-    textAlign: 'center', // Centers the title below the image
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional: Adds shadow
-    display: 'flex', // Use flexbox to ensure equal item height
-    flexDirection: 'column', // Aligns image and title vertically
-    justifyContent: 'space-between', // Ensures title aligns at the bottom
-    alignItems: 'center', // Centers content horizontally
+    flex: '1 0 calc(25% - 20px)',
+    maxWidth: 'calc(25% - 20px)',
+    border: '2px solid #ccc',
+    borderRadius: '8px',
+    padding: '10px',
+    textAlign: 'center',
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center', // Center-aligns content
+    alignItems: 'center',
+    transition: 'transform 0.3s ease',
+    overflow: 'hidden', // Ensures content doesn't overflow
   },
   galleryImage: {
-    width: '100px', // Ensures image occupies the full width of the container
-    height: '100px', // Maintains aspect ratio
+    width: '100%',
+    height: 'auto',
     display: 'block',
-    marginBottom: '5px', // Space between the image and title
+    maxWidth: '150px',
+    marginBottom: '5px',
   },
   imageTitle: {
-    fontSize: '14px',
+    fontSize: '10px',
     color: '#333',
     textAlign: 'center',
-    marginTop: '5px', // Add space between image and title
+    wordWrap: 'break-word',
+    width: '100%', // Ensures text stays within the item's width
+    overflow: 'hidden', // Prevents text overflow
+    textOverflow: 'ellipsis', // Adds ellipsis if text is too long
+    whiteSpace: 'nowrap', // Keeps text on one line
+  },
+  '@media (max-width: 768px)': {
+    galleryItem: {
+      flex: '1 0 calc(50% - 20px)',
+      maxWidth: 'calc(50% - 20px)',
+    },
+    galleryImage: {
+      maxWidth: '120px',
+    },
+    imageTitle: {
+      fontSize: '10px', // Adjust font size for tablets
+    },
+  },
+  '@media (max-width: 480px)': {
+    galleryItem: {
+      flex: '1 0 calc(100% - 20px)',
+      maxWidth: 'calc(100% - 20px)',
+    },
+    galleryImage: {
+      maxWidth: '100px',
+    },
+    imageTitle: {
+      fontSize: '10px',
+      whiteSpace: 'normal', // Allows text to wrap to the next line
+    },
   },
 };
-  
+
   export default WidgetGallery;

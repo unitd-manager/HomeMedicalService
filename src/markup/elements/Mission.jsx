@@ -39,9 +39,11 @@ const Features = () => {
               <div className="row d-flex justify-content-center">
                 {Array.isArray(contentTab) && contentTab.map((item, index) => (
                   <div key={index} className="col-xl-4 col-lg-6 col-md-6 mb-30 d-flex justify-content-center">
-                    <div className="feature-container feature-bx3 text-center">
+                    <div className="feature-container feature-bx3 ">
                       <h5 className="ttr-title">{item.title}</h5>
-                      <p>{item.description ? stripHtmlTags(item.description) : ''}</p>
+                      <p className="text-wrap text-break">
+  {item.description ? stripHtmlTags(item.description) : ''}
+</p>
                     </div>
                   </div>
                 ))}

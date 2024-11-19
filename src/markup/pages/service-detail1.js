@@ -25,11 +25,29 @@ export default function News() {
       .catch(() => {});
   };
 
-  const formatTextAsList = (input) => {
-    if (!input) return "";
-    const lines = input.split("\n");
-    return `<ul>${lines.map((line) => `<li>${line.trim()}</li>`).join("")}</ul>`;
-  };
+  // Function to remove HTML tags and decode entities like &nbsp;
+const removeHtmlTags = (text) => {
+  // Remove HTML tags
+  const decodedText = text ? text.replace(/&nbsp;/g, " ") : "";
+  const cleanText = decodedText ? decodedText.replace(/<\/?[^>]+(>|$)/g, "") : "";
+  return cleanText;
+};
+
+// Function to format the cleaned text as a list
+const formatTextAsList = (input) => {
+  if (!input) return null;
+  
+  const lines = input.split("\n").filter((line) => line.trim() !== "");
+
+  const listItems = lines.map((line, index) => (
+    <li key={index} style={{ fontFamily: "montserrat", fontSize: "16px", color: "blue", marginBottom: "8px" , listStyleType: "disc"}}>
+      {line.trim()}
+    </li>
+  ));
+
+  return <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>{listItems}</ul>;
+};
+
 
   return (
     <>
@@ -125,11 +143,8 @@ export default function News() {
                     }}
                   >
                     <div className="icon-content">
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: data.product_description ? formatTextAsList(data.product_description) : "",
-                        }}
-                        style={{
+                    {data.product_description && formatTextAsList(removeHtmlTags(data.product_description))}
+                    {/* style={{
                           fontSize: "14px",
                           lineHeight: "1.6",
                           color: "#333",
@@ -138,7 +153,7 @@ export default function News() {
                           maxHeight: "100px", // Limit the height for list items
                           overflow: "hidden", // Hide overflowing content
                         }}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>

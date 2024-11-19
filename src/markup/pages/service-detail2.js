@@ -29,11 +29,29 @@ export default function News() {
 			.catch(() => {});
 	};
 
-	const formatTextAsList = (input) => {
-		if (!input) return "";
-		const lines = input.split("\n");
-		return `<ul>${lines.map((line) => `<li>${line.trim()}</li>`).join("")}</ul>`;
-	  };
+// Function to remove HTML tags and decode entities like &nbsp;
+const removeHtmlTags = (text) => {
+	// Remove HTML tags
+	const decodedText = text ? text.replace(/&nbsp;/g, " ") : "";
+	const cleanText = decodedText ? decodedText.replace(/<\/?[^>]+(>|$)/g, "") : "";
+	return cleanText;
+  };
+  
+  // Function to format the cleaned text as a list
+  const formatTextAsList = (input) => {
+	if (!input) return null;
+	
+	const lines = input.split("\n").filter((line) => line.trim() !== "");
+  
+	const listItems = lines.map((line, index) => (
+	  <li key={index} style={{ fontFamily: "montserrat", fontSize: "16px", color: "blue", marginBottom: "8px" , listStyleType: "disc"}}>
+		{line.trim()}
+	  </li>
+	));
+  
+	return <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>{listItems}</ul>;
+  };
+  
 	
 
 
@@ -87,13 +105,13 @@ export default function News() {
 							{CategoryTwo.map((data, index) => (
 
 								<div className="col-lg-4 col-md-6 mb-30">
-									<div className="feature-container feature-bx4">
+									<div className="feature-container feature-bx4" style={{
+                   
+				   height: "690px",
+				
+				 }}>
 									<div className="icon-content">
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: data.product_description ? formatTextAsList(data.product_description) : "",
-                          }}
-                        />
+									{data.product_description && formatTextAsList(removeHtmlTags(data.product_description))}
                       </div>
                 
 									</div>

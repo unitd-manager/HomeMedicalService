@@ -27,12 +27,30 @@ const TestimonialSection = () => {
       });
   };
 
-  const formatTextWithLineBreaks = (input) => {
-    let tempDiv = document.createElement("div");
-    tempDiv.innerHTML = input;
-    const textContent = tempDiv.textContent || tempDiv.innerText || "";
-    return textContent.replace(/\n/g, "<br />");
-  };
+ // Function to remove HTML tags and decode entities like &nbsp;
+const removeHtmlTags = (text) => {
+  // Remove HTML tags
+  const decodedText = text ? text.replace(/&nbsp;/g, " ") : "";
+  const cleanText = decodedText ? decodedText.replace(/<\/?[^>]+(>|$)/g, "") : "";
+  return cleanText;
+};
+
+// Function to format the cleaned text as a list
+const formatTextAsList = (input) => {
+  if (!input) return null;
+  
+  const lines = input.split("\n").filter((line) => line.trim() !== "");
+
+  const listItems = lines.map((line, index) => (
+    <li key={index} style={{ fontFamily: "montserrat", fontSize: "16px", color: "blue", marginBottom: "8px" , listStyleType: "disc"}}>
+      {line.trim()}
+    </li>
+  ));
+
+  return <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>{listItems}</ul>;
+};
+
+
 
   useEffect(() => {
     getMenu();
@@ -60,9 +78,7 @@ const TestimonialSection = () => {
               <div className="slider-item">
                 <div className="testimonial-bx">
                   <div className="testimonial-content">
-                    <p>
-                    <div dangerouslySetInnerHTML={{ __html: caregiver.description ? formatTextWithLineBreaks(caregiver.description) : '' }} />
-                    </p>
+                  {caregiver.description && formatTextAsList(removeHtmlTags(caregiver.description))}
                   </div>
                 </div>
               </div>

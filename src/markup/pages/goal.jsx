@@ -22,13 +22,28 @@ const Choose = () => {
       });
   };
 
-  const formatTextAsList = (input) => {
-    if (!input) return "";
-    const lines = input.split("\n").filter((line) => line.trim() !== "");
-    const listItems = lines.map((line, index) => `<li key=${index}>${line.trim()}</li>`).join("");
-    return `<ul>${listItems}</ul>`;
+ 	// Function to remove HTML tags and decode entities like &nbsp;
+const removeHtmlTags = (text) => {
+	// Remove HTML tags
+	const decodedText = text ? text.replace(/&nbsp;/g, " ") : "";
+	const cleanText = decodedText ? decodedText.replace(/<\/?[^>]+(>|$)/g, "") : "";
+	return cleanText;
   };
-
+  
+  // Function to format the cleaned text as a list
+  const formatTextAsList = (input) => {
+	if (!input) return null;
+	
+	const lines = input.split("\n").filter((line) => line.trim() !== "");
+  
+	const listItems = lines.map((line, index) => (
+	  <li key={index} style={{ fontFamily: "montserrat", fontSize: "16px", color: "blue", marginBottom: "8px" , listStyleType: "disc"}}>
+		{line.trim()}
+	  </li>
+	));
+  
+	return <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>{listItems}</ul>;
+  };
   useEffect(() => {
     getContent();
   }, []);
@@ -44,13 +59,8 @@ const Choose = () => {
               {/* <h6 className="title-ext text-secondary">About Us</h6> */}
               <h2 className="title">{content.title}</h2>
               {/* Render the formatted description */}
-              <div
-                        dangerouslySetInnerHTML={{
-                          __html: content.description
-                            ? formatTextAsList(content.description)
-                            : "",
-                        }}
-                      />
+              {content.description && formatTextAsList(removeHtmlTags(content.description))}
+
               {/* Read More/Less Button */}
            
             </div>

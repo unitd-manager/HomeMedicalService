@@ -53,7 +53,7 @@ const AboutSection = () => {
 									<h2 className="title">{story && story.title}</h2> 
                 <p>{story.description ? stripHtmlTags(story.description) : ''}</p>
               </div>
-								{/* <div className="row">
+								* <div className="row">
 									<div className="col-lg-6 col-sm-6 mb-30 mb-sm-20">
 										<div className="feature-container feature-bx1 feature1">
 											<div className="icon-md">
@@ -118,8 +118,8 @@ const AboutSection = () => {
 												<h4 className="ttr-title">Medical Treatment</h4>
 											</div>
 										</div>
-									</div> */}
-								{/* </div> */}
+									</div> 
+								</div> 
 								<Link to="/about-us" className="btn btn-primary shadow">Read More</Link>
 							</div>
 						</div>

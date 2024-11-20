@@ -63,30 +63,48 @@ const TestimonialSection = () => {
       <section className="section-area section-sp1">
         <div className="container">
           <div className="row" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div className="heading-bx text-center">
-              <h6 className="title-ext text-secondary">
-                Lakshmi Mission Hospital
-              </h6>
-              <h2 className="title m-b0">{content && content.title}</h2>
-              <div className="col-lg-12">
-                <div className="media-outline" style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-                  <div className="about-thumb1">
-                    <img
-                      src={`https://homeservices.unitdtechnologies.com/storage/uploads/${content && content.file_name}`}
-                      alt=""
-                      style={{ width: '500px', height: '450px' }}
-                    />
-                  </div>
-                  <div className="about-thumb1">
-                    <img
-                      src={testPic1}
-                      alt=""
-                      style={{ width: '500px', height: '450px' }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="heading-bx text-center">
+  <h6 className="title-ext text-secondary">
+    Lakshmi Mission Hospital
+  </h6>
+  <h2 className="title m-b0">{content && content.title}</h2>
+  <div className="col-lg-12">
+    <div
+      className="media-outline"
+      style={{
+        display: 'flex',
+        gap: '20px',
+        justifyContent: 'center',
+        flexWrap: 'wrap', // Allows wrapping in smaller screens
+      }}
+    >
+      <div className="about-thumb1">
+        <img
+          src={`https://homeservices.unitdtechnologies.com/storage/uploads/${content && content.file_name}`}
+          alt=""
+          style={{
+            width: '500px',
+            height: '450px',
+            maxWidth: '100%',
+            marginBottom: '20px', // Adds space between stacked images
+          }}
+        />
+      </div>
+      <div className="about-thumb1">
+        <img
+          src={testPic1}
+          alt=""
+          style={{
+            width: '500px',
+            height: '450px',
+            maxWidth: '100%',
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
 
             {/* Ensure equal height containers */}
             {Array.isArray(contentTab) &&

@@ -67,8 +67,12 @@ export default function AboutSection() {
     <h4>{data.description}</h4>
     <a href="tel:+919000191112" className="btn btn-secondary btn-lg shadow" style={{ marginRight: '10px' }}>Call Us</a>
     <a href="https://wa.me/919000191112" className="btn btn-secondary btn-lg shadow">WhatsApp Us</a>
-	<br/>
-	<p style={{ marginTop: '40px', fontSize:"12px", color:"#000080"}}>{content1[0].description ? stripHtmlTags(content1[0].description) : ''}</p>
+    <br />
+    {content1.length > 0 && (
+        <p style={{ marginTop: '40px', fontSize: "12px", color: "#000080" }}>
+            {content1[0].description ? stripHtmlTags(content1[0].description) : ''}
+        </p>
+    )}
 </div>
 						</div>
 										))}

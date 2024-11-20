@@ -162,7 +162,12 @@ const News = () => {
             <Slider {...settings} className="service-slide slick-arrow-none">
               {News.map((data, index) => (
                 <div className="slider-item" key={index}>
-                  <div className="feature-container feature-bx2 feature1">
+                  <div className="feature-container feature-bx2 feature1" style={{
+      height: "300px", // Set a fixed height
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+    }} >
                     <div className="icon-content">
                     <div className="truncate-text">
   {data.product_description ? (
@@ -183,7 +188,12 @@ const News = () => {
             <Slider {...settings} className="service-slide slick-arrow-none">
               {CategoryOne.map((data, index) => (
                 <div className="slider-item" key={index}>
-                  <div className="feature-container feature-bx2 feature1">
+                  <div className="feature-container feature-bx2 feature1" style={{
+      height: "300px", // Set a fixed height
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+    }} >
                     <div className="icon-content">
                     <div className="truncate-text">
   {data.product_description ? (
@@ -204,7 +214,12 @@ const News = () => {
             <Slider {...settings} className="service-slide slick-arrow-none">
               {CategoryTwo.map((data, index) => (
                 <div className="slider-item" key={index}>
-                  <div className="feature-container feature-bx2 feature1">
+                  <div className="feature-container feature-bx2 feature1"style={{
+      height: "300px", // Set a fixed height
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+    }} >
                     <div className="icon-content">
                     <div className="truncate-text">
   {data.product_description ? (

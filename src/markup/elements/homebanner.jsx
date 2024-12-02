@@ -65,8 +65,7 @@ export default function AboutSection() {
 							<div className="col-lg-7 col-md-6 col-sm-7">
     <h1>{data.title}</h1>
     <h4>{data.description}</h4>
-    <a href="tel:+919000191112" className="btn btn-secondary btn-lg shadow" style={{ marginRight: '10px' }}>Call Us</a>
-    <a href="https://wa.me/919000191112" className="btn btn-secondary btn-lg shadow">WhatsApp Us</a>
+ 
     <br />
     {content1.length > 0 && (
         <p style={{ marginTop: '40px', fontSize: "12px", color: "#000080" }}>

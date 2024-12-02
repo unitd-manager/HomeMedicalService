@@ -34,7 +34,7 @@ class WidgetGallery extends Component {
     return (
       <>
         <div className="widget widget_gallery">
-          <h4 className="widget-title">Our Products</h4>
+          <h4 className="widget-title" style={{textAlign:"center"}}>Our Equipments</h4>
           {isLoading ? (
             <p>Loading...</p>
           ) : error ? (

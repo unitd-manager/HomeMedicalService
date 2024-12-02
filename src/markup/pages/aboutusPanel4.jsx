@@ -95,7 +95,7 @@ const TestimonialSection = () => {
           src={testPic1}
           alt=""
           style={{
-            width: '500px',
+            width: '600px',
             height: '450px',
             maxWidth: '100%',
           }}

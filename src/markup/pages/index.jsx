@@ -2,6 +2,8 @@ import React from 'react';
 
 // Elements
 // import MainBannerSection from "../elements/home";
+import Banner from "../elements/main-banner2";
+import Team from "../elements/team";
 import BannerSection from "../elements/homebanner";
 import AboutSection from "../elements/about";
 import Glance from "../elements/glance";
@@ -18,6 +20,7 @@ import Gallery from "../elements/widget-gallery";
 
 
 
+
 import { CiTextAlignCenter } from 'react-icons/ci';
 
 function Index(){
@@ -26,10 +29,13 @@ function Index(){
 		<>
 			
 			{/* <MainBannerSection /> */}
+			<Banner/>
 
-			<BannerSection/>
+			<Team/>
 
 			<AboutSection />
+
+			<BannerSection/>
 			
 			<Glance/>
 
